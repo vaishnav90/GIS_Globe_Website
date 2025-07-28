@@ -1,6 +1,6 @@
-# Vaishnav Anand's Portfolio Website
+# 4-H GIS Website
 
-A modern, animated portfolio website built with Flask, featuring a dark theme with purple accents and a complete authentication system. The website showcases Vaishnav's projects, skills, and achievements in a beautiful and interactive way.
+A modern, animated portfolio website built with Flask, featuring a dark theme with purple accents and a complete authentication system. The website showcases The National 4-H Team's projects, about, and team and contact in a beautiful and interactive way.
 
 ## Features
 
@@ -187,11 +187,7 @@ Set these environment variables for production:
 - SQL injection protection via SQLAlchemy
 - Input validation and sanitization
 
-## Contact
 
-- Email: vaishnavanand90@gmail.com
-- Phone: 925-967-7435
-- Location: San Ramon, CA
 
 ## License
 
