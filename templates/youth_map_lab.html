@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Youth Map Lab - National 4-H GIS Leadership Team</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap');
+        
+        :root {
+            --bg: #000000;
+            --text: #ffffff;
+            --text-light: #e5e5e5;
+            --text-muted: #a0a0a0;
+            --border: #2a2a2a;
+            --border-light: #404040;
+            --highlight: #177a3b;
+            --highlight-light: #3fc16c;
+            --card-bg: rgba(255, 255, 255, 0.05);
+            --section-spacing: 120px;
+            --transition: 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        /* Light Mode Variables */
+        html[data-theme="light"] {
+            --bg: #ffffff;
+            --text: #1a1a1a;
+            --text-light: #2d2d2d;
+            --text-muted: #6b7280;
+            --border: #e5e7eb;
+            --border-light: #f3f4f6;
+            --highlight: #059669;
+            --highlight-light: #10b981;
+            --card-bg: rgba(0, 0, 0, 0.05);
+        }
+
+        @media (prefers-color-scheme: light) {
+            html:not([data-theme]) {
+                --bg: #ffffff;
+                --text: #1a1a1a;
+                --text-light: #2d2d2d;
+                --text-muted: #6b7280;
+                --border: #e5e7eb;
+                --border-light: #f3f4f6;
+                --highlight: #059669;
+                --highlight-light: #10b981;
+                --card-bg: rgba(0, 0, 0, 0.05);
+            }
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background: var(--bg);
+            color: var(--text);
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Background effects */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background:
+                linear-gradient(to bottom, rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.95));
+            pointer-events: none;
+            z-index: -2;
+        }
+
+        /* Light mode background */
+        html[data-theme="light"] body::before {
+            background: transparent;
+        }
+
+        .floating-accent {
+            position: fixed;
+            top: 20%;
+            right: 10%;
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, rgba(23, 122, 59, 0.1) 0%, transparent 70%);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: -1;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(180deg); }
+        }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 120px 40px 100px 40px;
+            position: relative;
+        }
+
+        /* Header */
+        .header {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            margin-bottom: var(--section-spacing);
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 0.8s 0.2s forwards;
+        }
+
+        .logo {
+            font-size: 32px;
+            font-weight: 900;
+            color: var(--highlight);
+            text-decoration: none;
+            letter-spacing: -0.02em;
+            line-height: 1.1;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+        }
+
+        .nav-link {
+            color: var(--text-light);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .nav-link:hover {
+            color: var(--highlight);
+        }
+
+        .nav-link i {
+            font-size: 14px;
+        }
+
+        /* Hero Section */
+        .hero {
+            margin-bottom: var(--section-spacing);
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 0.8s 0.4s forwards;
+        }
+
+        .hero-title {
+            font-size: clamp(3rem, 8vw, 6rem);
+            font-weight: 900;
+            color: var(--text);
+            margin-bottom: 40px;
+            background: linear-gradient(135deg, var(--highlight) 0%, var(--highlight-light) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: -0.05em;
+            line-height: 0.95;
+        }
+
+        .hero-subtitle {
+            font-size: 1.25rem;
+            color: var(--text-light);
+            max-width: 800px;
+            margin-bottom: 60px;
+            line-height: 1.7;
+        }
+
+        /* Content Sections */
+        .side-entry-section {
+            margin-bottom: var(--section-spacing);
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 0.8s 0.6s forwards;
+        }
+
+        .section-title {
+            font-size: clamp(2.5rem, 6vw, 4rem);
+            font-weight: 900;
+            color: var(--text);
+            margin-bottom: 60px;
+            letter-spacing: -0.05em;
+            line-height: 0.95;
+        }
+
+        .section-content {
+            display: flex;
+            flex-direction: column;
+            gap: 40px;
+        }
+
+        .content-block {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 40px;
+            backdrop-filter: blur(20px);
+        }
+
+        .content-block h3 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--text);
+            margin-bottom: 20px;
+        }
+
+        .content-block p {
+            color: var(--text-light);
+            margin-bottom: 20px;
+            line-height: 1.7;
+        }
+
+        .emoji-list {
+            list-style: none;
+            margin: 30px 0;
+        }
+
+        .emoji-list li {
+            color: var(--text-light);
+            margin-bottom: 15px;
+            padding-left: 40px;
+            position: relative;
+        }
+
+        .emoji-list li::before {
+            content: attr(data-emoji);
+            position: absolute;
+            left: 0;
+            font-size: 1.2em;
+        }
+
+        .highlight-box {
+            background: rgba(23, 122, 59, 0.1);
+            border: 1px solid var(--highlight);
+            border-radius: 12px;
+            padding: 30px;
+            margin: 30px 0;
+        }
+
+        .highlight-box h4 {
+            color: var(--highlight);
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+
+        .highlight-box p {
+            color: var(--text-light);
+            margin-bottom: 0;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 20px;
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            transition: all var(--transition);
+            margin-top: 20px;
+        }
+
+        .contact-item:hover {
+            border-color: var(--highlight);
+            transform: translateY(-2px);
+        }
+
+        .contact-item i {
+            font-size: 24px;
+            color: var(--highlight);
+        }
+
+        .contact-item a {
+            color: var(--text);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .contact-item a:hover {
+            color: var(--highlight);
+        }
+
+        /* Footer */
+        .footer {
+            background: rgba(0, 0, 0, 0.8);
+            border-top: 1px solid var(--border);
+            padding: 60px 40px;
+            text-align: center;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .footer-copyright {
+            color: var(--text-muted);
+            margin-bottom: 10px;
+        }
+
+        .footer-copyright a {
+            color: var(--highlight);
+            text-decoration: none;
+        }
+
+        .footer-copyright a:hover {
+            text-decoration: underline;
+        }
+
+        /* Light Mode Styles */
+        html[data-theme="light"] .content-block {
+            background: rgba(255, 255, 255, 0.8);
+            border-color: var(--border);
+        }
+
+        html[data-theme="light"] .content-block:hover {
+            border-color: var(--highlight);
+        }
+
+        html[data-theme="light"] .highlight-box {
+            background: rgba(5, 150, 105, 0.1);
+            border-color: var(--highlight);
+        }
+
+        html[data-theme="light"] .contact-item {
+            background: rgba(255, 255, 255, 0.8);
+            border-color: var(--border);
+        }
+
+        html[data-theme="light"] .contact-item:hover {
+            border-color: var(--highlight);
+        }
+
+        /* Light mode footer */
+        html[data-theme="light"] .footer {
+            background: rgba(255, 255, 255, 0.9);
+            color: var(--text);
+        }
+
+        html[data-theme="light"] .footer a {
+            color: var(--highlight);
+        }
+
+        html[data-theme="light"] .footer a:hover {
+            color: var(--text);
+        }
+
+        /* Clover Cursor */
+        .globe-cursor {
+            position: fixed;
+            width: 32px;
+            height: 32px;
+            pointer-events: none;
+            z-index: 9999;
+            transition: transform 0.1s ease;
+            transform: translate(-50%, -50%);
+        }
+
+        .globe-cursor:hover {
+            transform: translate(-50%, -50%) scale(1.2);
+        }
+
+        /* Hide cursor on mobile */
+        @media (max-width: 768px) {
+            .globe-cursor { display: none; }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .container {
+                padding: 80px 20px 60px 20px;
+            }
+
+            .header {
+                flex-direction: column;
+                gap: 20px;
+                align-items: flex-start;
+            }
+
+            .nav-links {
+                gap: 20px;
+            }
+
+            .hero-subtitle {
+                font-size: 1.1rem;
+            }
+
+            .content-block {
+                padding: 30px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="floating-accent"></div>
+    
+    <div class="container">
+        <div class="header">
+            <a href="/" class="logo">4-H NATIONAL<br>GIS TEAM</a>
+            <div class="nav-links">
+                <a href="/" class="nav-link"><i class="fas fa-arrow-left"></i> Back Home</a>
+                <a href="/contact" class="nav-link"><i class="fas fa-envelope"></i> Contact</a>
+            </div>
+        </div>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <h1 class="hero-title">Youth Map Lab</h1>
+        <p class="hero-subtitle">AI + GIS Workshops for Curious Minds & Change-Makers</p>
+    </section>
+
+    <!-- Featured Workshop Section -->
+    <section class="side-entry-section">
+        <h2 class="section-title">Featured Workshop</h2>
+        <div class="section-content">
+            <div class="content-block">
+                <div class="highlight-box">
+                    <h4>🌾 Satellites to Seeds</h4>
+                    <p>Students use satellite imagery, AI tools, and GIS to plan the farms of the future. Activities include smart farm design, crop zone mapping, sustainability analysis, and civic storytelling.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- What Students Will Do Section -->
+    <section class="side-entry-section">
+        <h2 class="section-title">What Students Will Do</h2>
+        <div class="section-content">
+            <div class="content-block">
+                <ul class="emoji-list">
+                    <li data-emoji="🧠">Think like scientists. Ask bold questions and investigate real-world challenges using data and spatial reasoning.</li>
+                    <li data-emoji="🛰️">Use real tools. Explore AI, ArcGIS, Google Earth, and satellite imagery — no experience needed.</li>
+                    <li data-emoji="🗺️">Make cool stuff. Build smart farm maps or "time machines" that show how neighborhoods change over time.</li>
+                    <li data-emoji="💬">Tell their story. Present like civic tech leaders — using maps, visuals, and evidence to make change.</li>
+                    <li data-emoji="📸">Decode local history. Use AI to read old photos, deeds, and articles — connecting data to community memory.</li>
+                    <li data-emoji="🌱">Design for the future. Apply sustainability and equity to projects that impact real places and people.</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Who It's For Section -->
+    <section class="side-entry-section">
+        <h2 class="section-title">Who It's For</h2>
+        <div class="section-content">
+            <div class="content-block">
+                <ul class="emoji-list">
+                    <li data-emoji="👩🏽‍🔬">Middle and high school students (Grades 5–9) — curious, creative, and ready to explore</li>
+                    <li data-emoji="🏫">Schools, libraries, after-school programs, equity clubs, and STEM camps</li>
+                    <li data-emoji="🧠">No prior experience needed — just imagination and a willingness to learn by doing</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- We Bring Everything Section -->
+    <section class="side-entry-section">
+        <h2 class="section-title">We Bring Everything</h2>
+        <div class="section-content">
+            <div class="content-block">
+                <div class="highlight-box">
+                    <h4>📚 Complete Workshop Package</h4>
+                    <p>Facilitators. Lessons. Maps. AI demos. Paper kits. All you need is a space, basic AV access, and a group of students ready to explore.</p>
+                </div>
+                
+                <h3>Get Started Today</h3>
+                <p>Text MAP to 202-556-0635 or email us at youthmaplab@national4hgeospatialteam.us!</p>
+
+                <div class="contact-item">
+                    <i class="fab fa-github"></i>
+                    <a href="#" target="_blank">View Youth Map Lab on GitHub</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <p class="footer-copyright">© 2023 4-H National GIS Team. All rights reserved.</p>
+            <p class="footer-copyright">Made by: <a href="https://www.linkedin.com/in/vaishnav-anand/" target="_blank">Vaishnav Anand</a></p>
+        </div>
+    </footer>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Hide default cursor
+        document.body.style.cursor = 'none';
+        // Add clover cursor element
+        const clover = document.createElement('img');
+        clover.src = 'static/images/Clover.png';
+        clover.className = 'globe-cursor';
+        document.body.appendChild(clover);
+        // Move clover with mouse
+        document.addEventListener('mousemove', function(e) {
+            clover.style.left = e.clientX + 'px';
+            clover.style.top = e.clientY + 'px';
+        });
+
+        function setMode(mode) {
+            if (mode === 'light') {
+                document.documentElement.setAttribute('data-theme', 'light');
+                localStorage.setItem('theme', 'light');
+                document.getElementById('mode-toggle').textContent = '☀️';
+            } else {
+                document.documentElement.removeAttribute('data-theme');
+                localStorage.setItem('theme', 'dark');
+                document.getElementById('mode-toggle').textContent = '🌙';
+            }
+        }
+        var modeToggle = document.getElementById('mode-toggle');
+        modeToggle.addEventListener('click', function() {
+            const currentTheme = document.documentElement.getAttribute('data-theme');
+            setMode(currentTheme === 'light' ? 'dark' : 'light');
+        });
+        setMode(localStorage.getItem('theme') === 'light' ? 'light' : 'dark');
+    });
+    </script>
+</body>
+</html> 

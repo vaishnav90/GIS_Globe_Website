@@ -1,0 +1,562 @@
+/* Theme Variables */
+:root {
+    /* Dark theme */
+    --terminal-bg-dark: #000000;
+    --terminal-text-dark: #ffffff;
+    --terminal-cursor-dark: #ffffff;
+    
+    /* Light theme */
+    --terminal-bg-light: #f5f1e6;
+    --terminal-text-light: #2c292d;
+    --terminal-cursor-light: #2c292d;
+    --terminal-shadow-light: rgba(0, 0, 0, 0.1);
+}
+
+.terminal-nav {
+    background-color: #000 !important;
+    color: var(--terminal-text-dark);
+    font-family: 'JetBrains Mono', 'Fira Code', 'Source Code Pro', 'Consolas', 'Monaco', 'Lucida Console', monospace;
+    font-size: 14px;
+    line-height: 1.4;
+    padding: 20px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
+    overflow-y: scroll;
+    display: none;
+    z-index: 1000;
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+body.terminal-page {
+    background-color: #000 !important;
+}
+
+/* Show terminal on all pages when not in modern view */
+.terminal-nav {
+    display: block;
+}
+
+body.modern-view .terminal-nav {
+    display: none;
+}
+
+/* Hide main content in terminal view, show in modern view */
+main {
+    display: none;
+}
+
+body.modern-view main {
+    display: block;
+}
+
+/* Hide navbar in terminal view */
+.navbar {
+    display: none;
+}
+
+body.modern-view .navbar {
+    display: flex;
+}
+
+/* Hide footer in terminal view */
+footer {
+    display: none;
+}
+
+body.modern-view footer {
+    display: block;
+}
+
+.terminal-prompt {
+    color: #ffffff;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.terminal-output {
+    color: #ffffff;
+    white-space: pre-wrap;
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+.terminal-input-line {
+    display: flex;
+    align-items: center;
+    position: relative;
+    margin-top: 10px;
+    background: transparent !important;
+}
+
+.prompt {
+    color: #ffffff;
+    margin-right: 8px;
+    font-weight: bold;
+    flex-shrink: 0;
+    z-index: 3;
+}
+
+.terminal-input {
+    background: transparent;
+    border: none;
+    color: transparent;
+    caret-color: transparent;
+    font-family: inherit;
+    font-size: inherit;
+    width: 100%;
+    padding: 0;
+    margin: 0;
+    outline: none;
+    position: relative;
+    z-index: 2;
+    opacity: 0;
+}
+
+.terminal-input-display {
+    position: absolute;
+    left: calc(8px + 1em);
+    top: 50%;
+    transform: translateY(-50%);
+    width: calc(100% - (8px + 1em));
+    padding-left: 0;
+    font-family: inherit;
+    font-size: inherit;
+    color: var(--terminal-text-dark);
+    pointer-events: none;
+}
+
+.cursor {
+    position: absolute;
+    width: 8px;
+    height: 16px;
+    background-color: var(--terminal-cursor-dark);
+    animation: blink 1s step-end infinite;
+    z-index: 1;
+}
+
+.terminal-output.has-overflow {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+}
+
+.modern-view-toggle {
+    position: fixed;
+    top: 10px;
+    right: 10px;
+    background: rgba(255, 255, 255, 0.15);
+    color: #fff;
+    border: none;
+    padding: 8px 16px;
+    cursor: pointer;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    border-radius: 6px;
+    z-index: 1002;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+    transition: all 0.2s;
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+}
+
+body.terminal-page .modern-view-toggle {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+    transition: all 0.2s;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.modern-view-toggle:hover {
+    background: rgba(255, 255, 255, 0.25);
+}
+
+body.terminal-page.modern-view .modern-view-toggle {
+    background: rgba(0, 0, 0, 0.85);
+    color: #ffffff;
+}
+
+body.terminal-page.modern-view .modern-view-toggle:hover {
+    background: rgba(0, 0, 0, 0.95);
+}
+
+@keyframes blink {
+    0%, 100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0;
+    }
+}
+
+.terminal-font {
+    font-family: 'SF Mono', 'Menlo', 'Monaco', 'Courier New', monospace;
+}
+
+.terminal-switch-button {
+    background: transparent;
+    border: 1px solid #ffffff;
+    color: #ffffff;
+    font-family: 'SF Mono', 'Menlo', 'Monaco', 'Courier New', monospace;
+    padding: 8px 16px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.2s;
+    margin-top: 20px;
+}
+
+.terminal-switch-button:hover {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+body.terminal-page .terminal-switch-button {
+    border-color: #00ff00;
+    color: #00ff00;
+}
+
+body.terminal-page .terminal-switch-button:hover {
+    background: rgba(0, 255, 0, 0.1);
+}
+
+body.modern-view .terminal-switch-button {
+    border-color: #333;
+    color: #333;
+}
+
+body.modern-view .terminal-switch-button:hover {
+    background: rgba(0, 0, 0, 0.1);
+}
+
+body {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+main {
+    flex: 1;
+}
+
+footer {
+    margin-top: auto;
+    padding: 20px;
+    text-align: center;
+    background: transparent;
+    position: relative;
+    z-index: 10;
+}
+
+/* Mobile Styles */
+@media (max-width: 768px) {
+    /* Use dynamic viewport height */
+    :root {
+        --vh: 1vh;
+    }
+
+    body {
+        min-height: 100vh;
+        min-height: calc(var(--vh, 1vh) * 100);
+    }
+
+    body.modern-view {
+        font-size: 16px;
+        line-height: 1.5;
+    }
+
+    body.modern-view main {
+        padding: 1rem;
+        max-width: 100%;
+        margin: 0 auto;
+        min-height: calc(var(--vh, 1vh) * 100);
+    }
+
+    body.modern-view .navbar {
+        padding: 0.75rem 1rem;
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+        background: rgba(255, 255, 255, 0.95);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+    }
+
+    body.modern-view section {
+        padding: 1.5rem 1rem;
+        margin-bottom: 1.5rem;
+        border-radius: 0.5rem;
+    }
+
+    body.modern-view h1 {
+        font-size: 1.75rem;
+        margin-bottom: 1rem;
+    }
+
+    body.modern-view h2 {
+        font-size: 1.5rem;
+        margin-bottom: 0.875rem;
+    }
+
+    body.modern-view h3 {
+        font-size: 1.25rem;
+        margin-bottom: 0.75rem;
+    }
+
+    body.modern-view p {
+        font-size: 1rem;
+        margin-bottom: 1rem;
+        line-height: 1.6;
+    }
+
+    body.modern-view .modern-view-toggle {
+        font-size: 0.875rem;
+        padding: 0.5rem 1rem;
+        border-radius: 0.375rem;
+        bottom: 1rem;
+        right: 1rem;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+    }
+
+    body.modern-view footer {
+        padding: 1rem;
+        font-size: 0.875rem;
+        position: relative;
+        margin-top: auto;
+    }
+
+    /* Project cards and grid layouts */
+    body.modern-view .project-grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 1rem;
+        padding: 1rem;
+    }
+
+    body.modern-view .project-card {
+        padding: 1rem;
+        border-radius: 0.5rem;
+        height: auto;
+    }
+
+    /* Form elements */
+    body.modern-view input,
+    body.modern-view textarea,
+    body.modern-view button {
+        font-size: 1rem;
+        padding: 0.75rem;
+        border-radius: 0.375rem;
+        width: 100%;
+        max-width: 100%;
+        margin-bottom: 1rem;
+    }
+
+    /* Images and media */
+    body.modern-view img {
+        max-width: 100%;
+        height: auto;
+        border-radius: 0.375rem;
+    }
+
+    /* Lists and navigation */
+    body.modern-view ul,
+    body.modern-view ol {
+        padding-left: 1.25rem;
+        margin-bottom: 1rem;
+    }
+
+    body.modern-view li {
+        margin-bottom: 0.5rem;
+    }
+
+    /* Ensure content doesn't overflow on small screens */
+    body.modern-view * {
+        max-width: 100%;
+        box-sizing: border-box;
+    }
+
+    /* Handle orientation changes */
+    @media (orientation: landscape) {
+        body.modern-view .project-grid {
+            grid-template-columns: repeat(2, 1fr);
+        }
+
+        body.modern-view main {
+            padding: 1rem 1.5rem;
+        }
+    }
+
+    body:not(.modern-view) {
+        position: fixed;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+    }
+
+    .terminal-nav {
+        padding: 10px;
+        position: absolute;
+        height: 100%;
+        overflow-y: scroll;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    /* Container for terminal content */
+    .terminal-content {
+        min-height: 100%;
+        padding-bottom: 50vh; /* Space for keyboard */
+        display: flex;
+        flex-direction: column;
+    }
+
+    .terminal-output {
+        font-size: 16px;
+        line-height: 1.6;
+        flex-grow: 1;
+    }
+
+    .terminal-input-line {
+        position: relative;
+        padding: 10px 0;
+        background: #000 !important;
+        display: flex;
+        align-items: center;
+    }
+
+    .terminal-input-display {
+        position: absolute;
+        left: calc(8px + 1em);
+        top: 50%;
+        transform: translateY(-50%);
+        width: calc(100% - (8px + 1em));
+        padding-left: 0;
+    }
+
+    .prompt {
+        position: relative;
+        z-index: 3;
+    }
+
+    .modern-view-toggle {
+        top: auto;
+        bottom: 20px;
+        right: 20px;
+        padding: 12px 20px;
+        font-size: 16px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    }
+
+    .cursor {
+        height: 20px;
+    }
+
+    .terminal-output, .prompt {
+        -webkit-user-select: none;
+        user-select: none;
+    }
+
+    .terminal-input {
+        -webkit-user-select: text;
+        user-select: text;
+    }
+
+    /* Adjust padding for keyboard only in terminal view */
+    @supports (-webkit-touch-callout: none) {
+        body:not(.modern-view) .terminal-nav {
+            padding-bottom: 50vh;
+        }
+    }
+}
+
+/* Landscape orientation adjustments */
+@media (max-width: 768px) and (orientation: landscape) {
+    .terminal-nav {
+        padding-bottom: 20px;
+    }
+
+    .modern-view-toggle {
+        bottom: 10px;
+        right: 10px;
+    }
+}
+
+/* Ensure main content is scrollable in modern view */
+main {
+    -webkit-overflow-scrolling: touch;
+    overflow-y: auto;
+}
+
+/* Make sure content sections are properly spaced in modern view */
+body.modern-view section {
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+/* Tablet and larger phones */
+@media (min-width: 640px) and (max-width: 768px) {
+    body.modern-view .project-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    body.modern-view main {
+        padding: 1.5rem;
+    }
+
+    body.modern-view h1 {
+        font-size: 2rem;
+    }
+}
+
+/* Light Theme Styles */
+body.light-theme .terminal-nav {
+    background-color: var(--terminal-bg-light);
+    color: var(--terminal-text-light);
+    box-shadow: 0 0 20px var(--terminal-shadow-light);
+}
+
+body.light-theme .terminal-output {
+    color: var(--terminal-text-light);
+}
+
+body.light-theme .prompt,
+body.light-theme .terminal-prompt {
+    color: var(--terminal-text-light);
+}
+
+body.light-theme .cursor {
+    background-color: var(--terminal-cursor-light);
+}
+
+body.light-theme .terminal-input {
+    color: transparent;
+    caret-color: var(--terminal-cursor-light);
+}
+
+body.light-theme .terminal-input-display {
+    color: var(--terminal-text-light);
+}
+
+body.light-theme .modern-view-toggle {
+    background: rgba(0, 0, 0, 0.05);
+    color: var(--terminal-text-light);
+}
+
+body.light-theme .modern-view-toggle:hover {
+    background: rgba(0, 0, 0, 0.1);
+}
+
+.terminal-content,
+.terminal-output,
+.terminal-input-line {
+    background: #000 !important;
+} 

@@ -1,0 +1,857 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>National 4-H GIS Team</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/GLTFLoader.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/DRACOLoader.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #000000 0%, #0a0a0a 25%, #001a00 50%, #003300 75%, #004d00 100%);
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+            opacity: 0;
+            transition: opacity 1s ease;
+        }
+        
+        body.page-visible {
+            opacity: 1;
+        }
+        
+        /* Matrix-style particles */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+        
+        .particle {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: #00ff00;
+            border-radius: 50%;
+            opacity: 0.8;
+            transition: all 0.3s ease;
+        }
+        
+        /* World map background */
+        body::after {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 200%;
+            height: 100%;
+            background-image: url('/static/images/map.jpg');
+            background-size: auto 100%;
+            background-position: left center;
+            background-repeat: repeat-x;
+            pointer-events: none;
+            z-index: -2;
+            opacity: 0.3;
+            animation: mapScroll 30s linear infinite;
+        }
+        
+        @keyframes mapScroll {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+        
+        .container {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+        
+        /* Header */
+        .header {
+            position: absolute;
+            top: 40px;
+            left: 40px;
+            z-index: 10;
+        }
+        
+        .logo {
+            color: white;
+            font-weight: 900;
+            font-size: 32px;
+            line-height: 1;
+            letter-spacing: -0.02em;
+        }
+        
+        .logo-subtitle {
+            color: white;
+            font-weight: 400;
+            font-size: 14px;
+            margin-top: 8px;
+            opacity: 0.9;
+        }
+        
+        /* Main Layout */
+        .main-content {
+            display: flex;
+            min-height: 100vh;
+            align-items: center;
+        }
+        
+        .left-section {
+            flex: 1;
+            padding-left: 40px;
+            z-index: 5;
+        }
+        
+        .right-section {
+            flex: 1;
+            position: relative;
+            height: 100vh;
+        }
+        
+        #globe-container {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            right: 0;
+            border: none;
+            outline: none;
+        }
+        
+        #globe-container canvas {
+            border: none !important;
+            outline: none !important;
+        }
+        
+        /* Main Typography */
+        .hero-text {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        
+        .text-button {
+            display: block;
+            font-weight: 900;
+            font-size: clamp(40px, 6vw, 120px);
+            line-height: 0.85;
+            letter-spacing: -0.05em;
+            color: white;
+            text-transform: uppercase;
+            background: none;
+            border: none;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            transform-origin: center;
+            position: relative;
+            margin: 0;
+            padding: 0;
+            text-align: left;
+            width: fit-content;
+            text-decoration: none;
+            overflow: hidden;
+        }
+        
+        .text-button::after {
+            content: '';
+            position: absolute;
+            right: -2px;
+            top: 0;
+            height: 100%;
+            width: 2px;
+            background: white;
+            animation: blink 1s infinite;
+        }
+        
+        .text-button.typing::after {
+            animation: none;
+        }
+        
+        @keyframes blink {
+            0%, 50% { opacity: 1; }
+            51%, 100% { opacity: 0; }
+        }
+        
+        .text-button:hover {
+            transform: scale(1.05);
+            color: #111;
+            -webkit-text-stroke: 2px #177a3b;
+            text-stroke: 2px #177a3b;
+            background: none;
+            border: none;
+            text-shadow: none;
+        }
+        
+        /* Navigation */
+        .nav-left {
+            position: absolute;
+            bottom: 40px;
+            left: 40px;
+            color: white;
+            z-index: 10;
+        }
+        
+        .nav-left .location {
+            font-size: 14px;
+            margin-bottom: 4px;
+            opacity: 0.9;
+        }
+        
+        .nav-left .role {
+            font-size: 14px;
+            margin-bottom: 20px;
+            opacity: 0.9;
+        }
+        
+        .nav-left .website {
+            font-size: 14px;
+            color: white;
+            text-decoration: none;
+            opacity: 0.9;
+            transition: opacity 0.3s ease;
+        }
+        
+        .nav-left .website:hover {
+            opacity: 1;
+            color: #00ff00;
+        }
+        
+        .nav-center {
+            position: absolute;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 40px;
+            color: white;
+            z-index: 10;
+        }
+        
+        .nav-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 14px;
+            color: white;
+            text-decoration: none;
+            opacity: 0.9;
+            transition: opacity 0.3s ease;
+        }
+        
+        .nav-item:hover {
+            opacity: 1;
+            color: #00ff00;
+        }
+        
+        .nav-item .number {
+            font-weight: 700;
+        }
+        
+        .nav-right {
+            position: absolute;
+            bottom: 40px;
+            right: 40px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            color: white;
+            z-index: 10;
+        }
+        
+        .nav-right .nav-item {
+            justify-content: flex-end;
+        }
+        
+
+        
+        /* Background Text Elements */
+        .bg-text {
+            position: absolute;
+            font-weight: 900;
+            color: rgba(255, 255, 255, 0.03);
+            font-size: 120px;
+            line-height: 1;
+            pointer-events: none;
+            z-index: 1;
+        }
+        
+        .bg-text.studio {
+            top: 15%;
+            right: 10%;
+            transform: rotate(15deg);
+        }
+        
+        .bg-text.mega {
+            top: 25%;
+            left: 15%;
+            transform: rotate(-8deg);
+        }
+        
+        .bg-text.brigade {
+            bottom: 25%;
+            right: 15%;
+            transform: rotate(12deg);
+        }
+        
+        .bg-text.push {
+            bottom: 35%;
+            left: 10%;
+            transform: rotate(-15deg);
+        }
+        
+        .bg-text.onyx {
+            top: 40%;
+            left: 5%;
+            transform: rotate(25deg);
+        }
+        
+        .bg-text.maps {
+            bottom: 15%;
+            right: 5%;
+            transform: rotate(-20deg);
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header {
+                top: 20px;
+                left: 20px;
+            }
+            
+            .logo {
+                font-size: 24px;
+            }
+            
+            .main-content {
+                flex-direction: column;
+            }
+            
+            .left-section {
+                padding-left: 20px;
+                padding-top: 100px;
+            }
+            
+            .right-section {
+                height: 50vh;
+            }
+            
+            .text-button {
+                font-size: clamp(40px, 10vw, 80px);
+                text-align: center;
+                margin-bottom: 15px;
+                line-height: 0.9;
+            }
+            
+            .nav-left, .nav-right {
+                bottom: 20px;
+            }
+            
+            .nav-left {
+                left: 20px;
+            }
+            
+            .nav-right {
+                right: 20px;
+            }
+            
+
+            
+            .nav-center {
+                bottom: 20px;
+                flex-direction: column;
+                gap: 16px;
+                text-align: center;
+            }
+            
+            .bg-text {
+                font-size: 60px;
+            }
+        }
+        
+        /* Simple fade-in for the whole page */
+        body {
+            opacity: 0;
+            transition: opacity 1s ease;
+        }
+        body.page-visible {
+            opacity: 1;
+        }
+        
+    </style>
+
+<!-- Clover cursor -->
+<style>
+.globe-cursor {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 40px;
+    height: 40px;
+    pointer-events: none;
+    z-index: 9999;
+    transform: translate(-50%, -50%);
+    transition: filter 0.2s;
+}
+@media (max-width: 600px) {
+    .globe-cursor { display: none; }
+}
+#mode-toggle {
+    position: fixed;
+    top: 24px;
+    right: 32px;
+    z-index: 2000;
+    background: rgba(255,255,255,0.8);
+    border: none;
+    border-radius: 50%;
+    width: 44px;
+    height: 44px;
+    font-size: 1.5rem;
+    cursor: pointer;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    transition: background 0.2s;
+    pointer-events: auto;
+}
+#mode-toggle:hover {
+    background: #eaeaea;
+}
+</style>
+<style>
+:root {
+    --green: #177a3b;
+}
+body.light-mode {
+    background: #fff !important;
+    color: #111 !important;
+}
+body.light-mode::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0,0,0,0.25);
+    z-index: -1;
+    pointer-events: none;
+}
+body.light-mode::after {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 200%;
+    height: 100vh;
+    background-image: url('/static/images/wwhite2.jpg');
+    background-size: auto 120%;
+    background-position: left center;
+    background-repeat: repeat-x;
+    background-color: transparent;
+    z-index: -2;
+    /* DEBUG: border: 2px dashed red; */
+    /* If you still see a white screen, check that /static/images/wwhite.jpg exists and is accessible. */
+    pointer-events: none;
+    animation: mapScroll 30s linear infinite;
+}
+body.light-mode .text-button {
+    color: #111;
+    background: none;
+    border: none;
+    -webkit-text-stroke: none;
+    text-stroke: none;
+    transition: all 0.3s;
+}
+body.light-mode .text-button:hover {
+    color: #fff;
+    background: none;
+    border: none;
+    -webkit-text-stroke: 2px var(--green);
+    text-stroke: 2px var(--green);
+}
+body.light-mode .nav-item,
+body.light-mode .website {
+    color: #111;
+}
+body.light-mode .nav-item:hover,
+body.light-mode .website:hover {
+    color: var(--green);
+}
+        body.light-mode .globe-cursor {
+            filter: grayscale(1) brightness(0.7);
+        }
+
+        /* Made by text styling */
+        .made-by {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: white;
+            font-size: 12px;
+            font-weight: 400;
+            z-index: 1000;
+            text-align: center;
+        }
+
+        .made-by a {
+            color: white;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .made-by a:hover {
+            color: #177a3b;
+        }
+
+        /* Light mode styling for made by text */
+        body.light-mode .made-by {
+            color: #1a1a1a;
+        }
+
+        body.light-mode .made-by a {
+            color: #1a1a1a;
+        }
+
+        body.light-mode .made-by a:hover {
+            color: #177a3b;
+        }
+body.light-mode .next-up-btn {
+    color: #111;
+}
+body.light-mode .next-up-btn:hover {
+    color: #fff;
+    -webkit-text-stroke: 2px var(--green);
+    text-stroke: 2px var(--green);
+}
+body.dark-mode {
+    background: #000 !important;
+    color: #fff !important;
+}
+</style>
+</head>
+<body>
+    <button id="mode-toggle" aria-label="Toggle light/dark mode">🌙</button>
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        document.body.classList.add('page-visible');
+        
+        // Light/Dark mode toggle logic
+        function setMode(mode) {
+            if (mode === 'light') {
+                document.body.classList.add('light-mode');
+                document.body.classList.remove('dark-mode');
+                localStorage.setItem('theme', 'light');
+                document.getElementById('mode-toggle').textContent = '☀️';
+            } else {
+                document.body.classList.remove('light-mode');
+                document.body.classList.add('dark-mode');
+                localStorage.setItem('theme', 'dark');
+                document.getElementById('mode-toggle').textContent = '🌙';
+            }
+        }
+        var modeToggle = document.getElementById('mode-toggle');
+        modeToggle.addEventListener('click', function() {
+            setMode(document.body.classList.contains('light-mode') ? 'dark' : 'light');
+        });
+        // On load, set mode from localStorage or default to dark
+        setMode(localStorage.getItem('theme') === 'light' ? 'light' : 'dark');
+        
+        // Create particle system
+        const particlesContainer = document.createElement('div');
+        particlesContainer.className = 'particles';
+        document.body.appendChild(particlesContainer);
+        
+        const particles = [];
+        const maxParticles = 20;
+        
+        // Mouse interaction with particles
+        let mouseX = 0;
+        let mouseY = 0;
+        
+        document.addEventListener('mousemove', function(e) {
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+            
+            // Create new particle at mouse position
+            if (particles.length < maxParticles) {
+                createParticle(mouseX, mouseY);
+            }
+        });
+        
+        function createParticle(x, y) {
+            const particle = document.createElement('div');
+            particle.className = 'particle';
+            particle.style.left = x + 'px';
+            particle.style.top = y + 'px';
+            
+            particlesContainer.appendChild(particle);
+            particles.push(particle);
+            
+            // Animate particle
+            setTimeout(() => {
+                particle.style.transform = `translate(${Math.random() * 200 - 100}px, ${Math.random() * 200 - 100}px)`;
+                particle.style.opacity = '0';
+            }, 50);
+            
+            // Remove particle after animation
+            setTimeout(() => {
+                if (particle.parentNode) {
+                    particle.parentNode.removeChild(particle);
+                    const index = particles.indexOf(particle);
+                    if (index > -1) {
+                        particles.splice(index, 1);
+                    }
+                }
+            }, 1000);
+        }
+
+        // Three.js Globe Setup
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / 2 / window.innerHeight, 0.1, 1000);
+        const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+        
+        const container = document.getElementById('globe-container');
+        renderer.setSize(container.clientWidth, container.clientHeight);
+        renderer.setClearColor(0x000000, 0); // Transparent background
+        container.appendChild(renderer.domElement);
+        
+        // Remove any default styling from canvas
+        renderer.domElement.style.border = 'none';
+        renderer.domElement.style.outline = 'none';
+        
+        // Set camera to fixed position - no movement
+        camera.position.set(0, 0, 15);
+        camera.lookAt(0, 0, 0);
+        
+        // Lighting
+        const ambientLight = new THREE.AmbientLight(0xffffff, 0.6);
+        scene.add(ambientLight);
+        
+        const directionalLight = new THREE.DirectionalLight(0xffffff, 0.8);
+        directionalLight.position.set(10, 10, 5);
+        scene.add(directionalLight);
+        
+        // Load the Earth Globe
+        const loader = new THREE.GLTFLoader();
+        
+        // Configure DRACO loader for compressed files
+        const dracoLoader = new THREE.DRACOLoader();
+        dracoLoader.setDecoderPath('https://www.gstatic.com/draco/versioned/decoders/1.4.1/');
+        loader.setDRACOLoader(dracoLoader);
+        
+        let globe;
+        
+        loader.load('/static/Earth Globe Hologram.glb', 
+            function (gltf) {
+                console.log('Globe loaded successfully');
+                globe = gltf.scene;
+                
+                // Make the globe much bigger
+                globe.scale.set(7, 7, 7);
+                // Make globe more bold: add emissive and outline
+                globe.traverse(function(child) {
+                    if (child.isMesh && child.material) {
+                        if (child.material.emissive) {
+                            child.material.emissive.set('#177a3b');
+                            child.material.emissiveIntensity = 0.5;
+                        }
+                        if (child.material.color) {
+                            child.material.color.multiplyScalar(1.2);
+                        }
+                        // Add outline
+                        child.material.outline = true;
+                    }
+                });
+                
+                // Center the globe at origin
+                globe.position.set(0, 0, 0);
+                
+                scene.add(globe);
+                
+                // Animation loop - rotate but stay in same position
+                function animate() {
+                    requestAnimationFrame(animate);
+                    
+                    if (globe) {
+                        // Only rotate around Y axis, keep position fixed
+                        globe.rotation.y += 0.005;
+                    }
+                    
+                    renderer.render(scene, camera);
+                }
+                
+                animate();
+            },
+            function (progress) {
+                console.log('Loading progress:', (progress.loaded / progress.total * 100) + '%');
+            },
+            function (error) {
+                console.error('Error loading globe:', error);
+                // Create a fallback sphere
+                const geometry = new THREE.SphereGeometry(1, 32, 32);
+                const material = new THREE.MeshPhongMaterial({ 
+                    color: 0x0066ff,
+                    transparent: true,
+                    opacity: 0.8
+                });
+                globe = new THREE.Mesh(geometry, material);
+                globe.position.set(0, 0, 0);
+                scene.add(globe);
+                
+                // Animation loop for fallback
+                function animate() {
+                    requestAnimationFrame(animate);
+                    
+                    if (globe) {
+                        globe.rotation.y += 0.005;
+                    }
+                    
+                    renderer.render(scene, camera);
+                }
+                
+                animate();
+            }
+        );
+        
+        // Handle window resize - keep camera fixed
+        window.addEventListener('resize', function() {
+            const width = container.clientWidth;
+            const height = container.clientHeight;
+            
+            camera.aspect = width / height;
+            camera.updateProjectionMatrix();
+            
+            renderer.setSize(width, height);
+        });
+
+        // Typewriter effect for navigation titles
+        const titles = ['ABOUT US', 'OUR WORK', 'OUR TEAM', 'OUR CURRICULUM'];
+        const titleElements = document.querySelectorAll('.text-button');
+        
+        function typeWriter(element, text, index = 0) {
+            if (index < text.length) {
+                element.textContent = text.substring(0, index + 1);
+                setTimeout(() => typeWriter(element, text, index + 1), 100);
+            } else {
+                element.classList.add('typing');
+            }
+        }
+        
+        // Start typing each title with a delay
+        titleElements.forEach((element, i) => {
+            const originalText = element.textContent;
+            element.textContent = '';
+            setTimeout(() => {
+                typeWriter(element, originalText);
+            }, i * 800); // 800ms delay between each title
+        });
+
+        // Hide default cursor
+        document.body.style.cursor = 'none';
+        // Add clover cursor element
+        const clover = document.createElement('img');
+        clover.src = 'static/images/Clover.png';
+        clover.className = 'globe-cursor';
+        document.body.appendChild(clover);
+        // Move clover with mouse
+        document.addEventListener('mousemove', function(e) {
+            clover.style.left = e.clientX + 'px';
+            clover.style.top = e.clientY + 'px';
+        });
+      });
+    </script>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <div class="logo">
+                4-H<br>
+                GIS<br>
+                
+            </div>
+        </div>
+        
+        <!-- Main Content -->
+        <div class="main-content">
+            <!-- Left Section - Titles -->
+            <div class="left-section">
+                <div class="hero-text">
+                    <a href="/about" class="text-button">ABOUT US</a>
+                    <a href="/projects" class="text-button">OUR WORK</a>
+                    <a href="/team" class="text-button">OUR TEAM</a>
+                    <a href="/contact" class="text-button">CONTACT US</a>
+                    <a href="/national-4h-gis-team" class="text-button">GALLERY</a>
+                </div>
+            </div>
+            
+            <!-- Right Section - Globe -->
+            <div class="right-section">
+                <div id="globe-container"></div>
+            </div>
+        </div>
+        
+        <!-- Background Text Elements -->
+      <!--  <div class="bg-text studio">ABOUT</div>
+        <div class="bg-text mega">PROJECTS</div>
+        <div class="bg-text brigade">CONTACT</div>
+        <div class="bg-text push">MUSIC</div> -->
+        
+        <!-- Navigation -->
+        <div class="nav-left">
+            
+            <div class="role"> <br>  <br>Geospatial Leadership Team </div>
+            <a href="#" class="website">national4hgeospatialteam.us</a> <!--- change to actual website -->
+        </div>
+        
+        <div class="nav-right">
+            <a href="https://www.instagram.com/nat4hgisteam" class="nav-item">
+                <span>Instagram</span>
+                <span class="number">01</span>
+            </a>
+            <a href="https://www.facebook.com/4hgisgps" class="nav-item">
+                <span>Facebook</span>
+                <span class="number">02</span>
+            </a>
+            {% if current_user.is_authenticated %}
+                <a href="/profile" class="nav-item">
+                    <span>Profile</span>
+                    <span class="number">03</span>
+                </a>
+                <a href="/logout" class="nav-item">
+                    <span>Logout</span>
+                    <span class="number">04</span>
+                </a>
+            {% else %}
+                <a href="/login" class="nav-item">
+                    <span>Login</span>
+                    <span class="number">03</span>
+                </a>
+                <a href="/register" class="nav-item">
+                    <span>Register</span>
+                    <span class="number">04</span>
+                </a>
+            {% endif %}
+        </div>
+        
+        <!-- Made by text -->
+        <div class="made-by">
+            Made by: <a href="https://www.linkedin.com/in/vaishnav-anand/" target="_blank">Vaishnav Anand</a>
+        </div>
+
+    </div>
+</body>
+</html>

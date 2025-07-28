@@ -1,0 +1,138 @@
+{% extends "base.html" %}
+
+{% block title %}Edit Project - Vaishnav Anand{% endblock %}
+
+{% block content %}
+<div class="project-form-container">
+    <div class="project-form-card">
+        <div class="project-form-header">
+            <h2>Edit Project</h2>
+            <p>Update your project information</p>
+        </div>
+        
+        <form method="POST" action="{{ url_for('edit_project', project_id=project.id) }}" class="project-form" enctype="multipart/form-data">
+            {{ form.hidden_tag() }}
+
+            <div class="form-group">
+                {{ form.title.label(class="form-label") }}
+                {{ form.title(class="form-control", placeholder="Enter project title") }}
+                {% if form.title.errors %}
+                    <div class="error-messages">
+                        {% for error in form.title.errors %}
+                            <span class="error">{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            </div>
+
+            <div class="form-group">
+                {{ form.creator_name.label(class="form-label") }}
+                {{ form.creator_name(class="form-control", placeholder="Enter the name of the person who created this project") }}
+                {% if form.creator_name.errors %}
+                    <div class="error-messages">
+                        {% for error in form.creator_name.errors %}
+                            <span class="error">{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            </div>
+
+            <div class="form-group">
+                {{ form.description.label(class="form-label") }}
+                {{ form.description(class="form-control", placeholder="Describe your project...", rows="4") }}
+                {% if form.description.errors %}
+                    <div class="error-messages">
+                        {% for error in form.description.errors %}
+                            <span class="error">{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            </div>
+
+            <div class="form-group">
+                {{ form.project_link.label(class="form-label") }}
+                {{ form.project_link(class="form-control", placeholder="https://example.com/project") }}
+                {% if form.project_link.errors %}
+                    <div class="error-messages">
+                        {% for error in form.project_link.errors %}
+                            <span class="error">{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            </div>
+
+            <div class="form-group">
+                {{ form.project_type.label(class="form-label") }}
+                {{ form.project_type(class="form-control") }}
+                {% if form.project_type.errors %}
+                    <div class="error-messages">
+                        {% for error in form.project_type.errors %}
+                            <span class="error">{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            </div>
+
+            <div class="form-group">
+                {{ form.tags.label(class="form-label") }}
+                {{ form.tags(class="form-control", placeholder="GIS, 4-H, Survey123, etc. (comma-separated)") }}
+                {% if form.tags.errors %}
+                    <div class="error-messages">
+                        {% for error in form.tags.errors %}
+                            <span class="error">{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            </div>
+
+            <div class="form-group">
+                {{ form.image_url.label(class="form-label") }}
+                {{ form.image_url(class="form-control", placeholder="Leave empty to auto-detect map view from project URL") }}
+                <small class="form-help">Enter an image URL, or leave empty to auto-detect from your project page.</small>
+                {% if form.image_url.errors %}
+                    <div class="error-messages">
+                        {% for error in form.image_url.errors %}
+                            <span class="error">{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            </div>
+
+            <div class="form-group">
+                {{ form.image_file.label(class="form-label") }}
+                {{ form.image_file(class="form-control", accept="image/*") }}
+                <small class="form-help">Or upload an image from your computer (JPG, PNG, GIF, WebP up to 16MB).</small>
+                {% if form.image_file.errors %}
+                    <div class="error-messages">
+                        {% for error in form.image_file.errors %}
+                            <span class="error">{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            </div>
+
+            <div class="form-group">
+                {{ form.submit(class="btn btn-primary btn-block") }}
+            </div>
+        </form>
+
+        <div class="project-form-links">
+            <a href="{{ url_for('projects') }}" class="btn btn-secondary">Back to Projects</a>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Form submission handling
+    document.querySelector('.project-form').addEventListener('submit', function(e) {
+        const submitBtn = this.querySelector('button[type="submit"]');
+        const originalText = submitBtn.innerHTML;
+        
+        // Show loading state
+        submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Updating...';
+        submitBtn.disabled = true;
+        
+        // Form will submit normally, backend will redirect
+    });
+</script>
+{% endblock %} 

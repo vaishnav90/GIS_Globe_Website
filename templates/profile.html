@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+{% block title %}Profile - Vaishnav Anand{% endblock %}
+
+{% block content %}
+<div class="profile-container">
+    <div class="profile-card">
+        <div class="profile-header">
+            <div class="profile-avatar">
+                <i class="fas fa-user-circle"></i>
+            </div>
+            <h2>{{ current_user.first_name }} {{ current_user.last_name }}</h2>
+            <p class="username">@{{ current_user.username }}</p>
+        </div>
+        
+        <div class="profile-info">
+            <div class="info-group">
+                <label>Email:</label>
+                <span>{{ current_user.email }}</span>
+            </div>
+            
+            <div class="info-group">
+                <label>Member since:</label>
+                <span>{{ current_user.created_at.strftime('%B %d, %Y') }}</span>
+            </div>
+            
+            {% if current_user.last_login %}
+            <div class="info-group">
+                <label>Last login:</label>
+                <span>{{ current_user.last_login.strftime('%B %d, %Y at %I:%M %p') }}</span>
+            </div>
+            {% endif %}
+        </div>
+        
+        <div class="profile-actions">
+            <a href="{{ url_for('home') }}" class="btn btn-secondary">Back to Home</a>
+        </div>
+    </div>
+</div>
+{% endblock %} 

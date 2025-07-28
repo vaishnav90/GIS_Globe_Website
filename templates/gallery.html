@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gallery - National 4-H GIS Leadership Team</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap');
+        
+        :root {
+            --bg: #000000;
+            --bg-secondary: #000000;
+            --text: #ffffff;
+            --text-light: #ffffff;
+            --text-muted: #737373;
+            --border: #1f1f1f;
+            --border-light: #2a2a2a;
+            --highlight: #177a3b;
+            --highlight-light: #3fc16c;
+            --highlight-glow: rgba(23,122,59,0.2);
+            --card-bg: rgba(0, 0, 0, 0.8);
+            --transition: 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+            --transition-fast: 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            --section-spacing: 160px;
+        }
+
+        /* Light Mode Variables */
+        html[data-theme="light"] {
+            --bg: #ffffff;
+            --bg-secondary: #f8f9fa;
+            --text: #1a1a1a;
+            --text-light: #2d2d2d;
+            --text-muted: #6b7280;
+            --border: #e5e7eb;
+            --border-light: #f3f4f6;
+            --highlight: #059669;
+            --highlight-light: #10b981;
+            --highlight-glow: rgba(5, 150, 105, 0.1);
+            --card-bg: #ffffff;
+        }
+
+        @media (prefers-color-scheme: light) {
+            html:not([data-theme]) {
+                --bg: #ffffff;
+                --bg-secondary: #f8f9fa;
+                --text: #1a1a1a;
+                --text-light: #2d2d2d;
+                --text-muted: #6b7280;
+                --border: #e5e7eb;
+                --border-light: #f3f4f6;
+                --highlight: #059669;
+                --highlight-light: #10b981;
+                --highlight-glow: rgba(5, 150, 105, 0.1);
+                --card-bg: #ffffff;
+            }
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background: var(--bg);
+            color: var(--text);
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            min-height: 100vh;
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Advanced background effects */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #000000;
+            pointer-events: none;
+            z-index: -2;
+        }
+
+        /* Light mode background */
+        html[data-theme="light"] body::before {
+            background: 
+                radial-gradient(circle at 20% 30%, rgba(79, 70, 229, 0.05) 0%, transparent 50%),
+                radial-gradient(circle at 80% 70%, rgba(79, 70, 229, 0.03) 0%, transparent 50%),
+                linear-gradient(to bottom, rgba(255, 255, 255, 0.95), rgba(248, 249, 250, 0.98));
+        }
+
+        @media (prefers-color-scheme: light) {
+            html:not([data-theme]) body::before {
+                background: 
+                    radial-gradient(circle at 20% 30%, rgba(79, 70, 229, 0.05) 0%, transparent 50%),
+                    radial-gradient(circle at 80% 70%, rgba(79, 70, 229, 0.03) 0%, transparent 50%),
+                    linear-gradient(to bottom, rgba(255, 255, 255, 0.95), rgba(248, 249, 250, 0.98));
+            }
+        }
+
+        /* Header */
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(0, 0, 0, 0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border);
+            z-index: 1000;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        html[data-theme="light"] .header {
+            background: rgba(255, 255, 255, 0.95);
+            border-bottom: 1px solid var(--border);
+        }
+
+        @media (prefers-color-scheme: light) {
+            html:not([data-theme]) .header {
+                background: rgba(255, 255, 255, 0.95);
+                border-bottom: 1px solid var(--border);
+            }
+        }
+
+        .logo {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--text);
+            text-decoration: none;
+            background: linear-gradient(135deg, var(--highlight), var(--highlight-light));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-link {
+            color: var(--text);
+            text-decoration: none;
+            font-weight: 500;
+            transition: all var(--transition-fast);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .nav-link:hover {
+            color: var(--highlight);
+        }
+
+        /* Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 120px 0 80px 0;
+            text-align: center;
+            position: relative;
+        }
+
+        .hero-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 3.5rem;
+            font-weight: 800;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, var(--text), var(--highlight));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-description {
+            font-size: 1.25rem;
+            color: var(--text-muted);
+            max-width: 600px;
+            margin: 0 auto 2rem auto;
+            line-height: 1.7;
+        }
+
+        .hero-cta {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: var(--highlight);
+            color: #000000;
+            padding: 1rem 2rem;
+            border-radius: 12px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all var(--transition-fast);
+            border: none;
+            cursor: pointer;
+        }
+
+        .hero-cta:hover {
+            background: var(--highlight-light);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(74, 222, 128, 0.3);
+        }
+
+        /* Gallery Grid */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+            padding: 2rem 0;
+        }
+
+        .gallery-item {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            overflow: hidden;
+            transition: all var(--transition-fast);
+            position: relative;
+        }
+
+        .gallery-item:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+            border-color: var(--highlight);
+        }
+
+        html[data-theme="light"] .gallery-item {
+            background: #ffffff;
+            border: 1px solid #e5e7eb;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+        }
+
+        html[data-theme="light"] .gallery-item:hover {
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        @media (prefers-color-scheme: light) {
+            html:not([data-theme]) .gallery-item {
+                background: #ffffff;
+                border: 1px solid #e5e7eb;
+                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            }
+            
+            html:not([data-theme]) .gallery-item:hover {
+                box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            }
+        }
+
+        .gallery-image {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            transition: transform var(--transition-fast);
+        }
+
+        .gallery-item:hover .gallery-image {
+            transform: scale(1.05);
+        }
+
+        .gallery-content {
+            padding: 1.5rem;
+        }
+
+        .gallery-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+            color: var(--text);
+        }
+
+        .gallery-description {
+            color: var(--text-muted);
+            line-height: 1.6;
+            margin-bottom: 1rem;
+        }
+
+        .gallery-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.875rem;
+            color: var(--text-muted);
+        }
+
+        .gallery-actions {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .action-btn {
+            background: none;
+            border: none;
+            color: var(--text-muted);
+            cursor: pointer;
+            padding: 0.5rem;
+            border-radius: 6px;
+            transition: all var(--transition-fast);
+        }
+
+        .action-btn:hover {
+            color: var(--highlight);
+            background: rgba(74, 222, 128, 0.1);
+        }
+
+        .delete-btn:hover {
+            color: #ef4444;
+            background: rgba(239, 68, 68, 0.1);
+        }
+
+        /* Empty State */
+        .empty-state {
+            text-align: center;
+            padding: 4rem 0;
+        }
+
+        .empty-state-icon {
+            font-size: 4rem;
+            color: var(--text-muted);
+            margin-bottom: 1rem;
+        }
+
+        .empty-state-title {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--text);
+            margin-bottom: 1rem;
+        }
+
+        .empty-state-description {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+        }
+
+        /* Theme Toggle */
+        .theme-toggle {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background: var(--highlight);
+            color: #000000;
+            border: none;
+            padding: 1rem;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1.25rem;
+            transition: all var(--transition-fast);
+            z-index: 1000;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+        }
+
+        .theme-toggle:hover {
+            background: var(--highlight-light);
+            transform: scale(1.1);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 2.5rem;
+            }
+            
+            .gallery-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+            
+            .header {
+                padding: 1rem;
+            }
+            
+            .nav-links {
+                gap: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Floating gradient accent -->
+    <div class="floating-accent"></div>
+    
+    <div class="container">
+        <div class="header">
+            <a href="/" class="logo">4-H NATIONAL<br>GIS TEAM</a>
+            <div class="nav-links">
+                <a href="/" class="nav-link"><i class="fas fa-arrow-left"></i> Back Home</a>
+                {% if current_user.is_authenticated and current_user.email.endswith('@national4hgeospatialteam.us') %}
+                <a href="{{ url_for('add_gallery_item') }}" class="nav-link"><i class="fas fa-plus"></i> Add Image</a>
+                {% endif %}
+            </div>
+        </div>
+        
+        <div class="hero">
+            <h1 class="hero-title">Club Gallery</h1>
+            <p class="hero-description">
+                Explore photos and memories from the National 4-H GIS Leadership Team. Each image tells a story of our journey, events, and the amazing work we do together.
+            </p>
+            {% if current_user.is_authenticated and current_user.email.endswith('@national4hgeospatialteam.us') %}
+            <a href="{{ url_for('add_gallery_item') }}" class="hero-cta">
+                <i class="fas fa-plus"></i> Add New Image
+            </a>
+            {% endif %}
+        </div>
+
+        {% if gallery_items %}
+        <div class="gallery-grid">
+            {% for item in gallery_items %}
+            <div class="gallery-item">
+                <img src="{{ item.image_url }}" alt="{{ item.title }}" class="gallery-image">
+                <div class="gallery-content">
+                    <h3 class="gallery-title">{{ item.title }}</h3>
+                    <p class="gallery-description">{{ item.description }}</p>
+                    <div class="gallery-meta">
+                        <span>
+                            <i class="fas fa-user"></i>
+                            {% if item.creator %}
+                                {{ item.creator.first_name }} {{ item.creator.last_name }}
+                            {% else %}
+                                Unknown User
+                            {% endif %}
+                        </span>
+                        <span>
+                            <i class="fas fa-calendar"></i>
+                            {% if item.created_at %}
+                                {{ item.created_at.split('T')[0] if 'T' in item.created_at else item.created_at }}
+                            {% else %}
+                                Unknown Date
+                            {% endif %}
+                        </span>
+                        {% if current_user.is_authenticated and current_user.email.endswith('@national4hgeospatialteam.us') and item.created_by == current_user.id %}
+                        <div class="gallery-actions">
+                            <form method="POST" action="{{ url_for('delete_gallery_item', item_id=item.id) }}" style="display: inline;" onsubmit="return confirm('Are you sure you want to delete this image?')">
+                                <button type="submit" class="action-btn delete-btn" title="Delete Image">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </form>
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        {% else %}
+        <div class="empty-state">
+            <div class="empty-state-icon">
+                <i class="fas fa-images"></i>
+            </div>
+            <h3 class="empty-state-title">No Images Yet</h3>
+            <p class="empty-state-description">
+                Be the first to add an image to our gallery! Share your favorite moments from the National 4-H GIS Leadership Team.
+            </p>
+            {% if current_user.is_authenticated and current_user.email.endswith('@national4hgeospatialteam.us') %}
+            <a href="{{ url_for('add_gallery_item') }}" class="hero-cta">
+                <i class="fas fa-plus"></i> Add First Image
+            </a>
+            {% elif current_user.is_authenticated %}
+            <div class="unauthorized-message">
+                <p>Only users with @national4hgeospatialteam.us email addresses can add images.</p>
+            </div>
+            {% else %}
+            <a href="{{ url_for('login') }}" class="hero-cta">
+                <i class="fas fa-sign-in-alt"></i> Login to Add Images
+            </a>
+            {% endif %}
+        </div>
+        {% endif %}
+    </div>
+    
+    <!-- Theme Toggle Button -->
+    <button class="theme-toggle" id="themeToggle" title="Toggle Light/Dark Mode">
+        <i class="fas fa-moon" id="themeIcon"></i>
+    </button>
+
+    <script>
+        // Theme toggle functionality
+        const themeToggle = document.getElementById('themeToggle');
+        const themeIcon = document.getElementById('themeIcon');
+        
+        // Check for saved theme preference or default to dark mode
+        const currentTheme = localStorage.getItem('theme') || 'dark';
+        document.documentElement.setAttribute('data-theme', currentTheme === 'light' ? 'light' : 'dark');
+        updateThemeIcon();
+        
+        themeToggle.addEventListener('click', () => {
+            const currentTheme = document.documentElement.getAttribute('data-theme');
+            const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+            
+            document.documentElement.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+            updateThemeIcon();
+        });
+        
+        function updateThemeIcon() {
+            const currentTheme = document.documentElement.getAttribute('data-theme');
+            if (currentTheme === 'light') {
+                themeIcon.className = 'fas fa-sun';
+            } else {
+                themeIcon.className = 'fas fa-moon';
+            }
+        }
+    </script>
+</body>
+</html> 

@@ -1,0 +1,51 @@
+# Virtual environment
+venv/
+env/
+ENV/
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Git
+.git/
+.gitignore
+
+# Logs
+*.log
+
+# Database files
+*.db
+*.sqlite
+
+# Environment variables
+.env
+.env.local
+
+# Node modules (if any)
+node_modules/
+
+# Large media files (if any)
+*.mp4
+*.avi
+*.mov
+
+# Large 3D files (exclude only the large one)
+static/Earth Globe.glb
+
+# Backup files
+*.bak
+*.backup

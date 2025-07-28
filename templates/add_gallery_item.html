@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Gallery Item - National 4-H GIS Leadership Team</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="project-form-container">
+        <div class="container">
+            <div class="project-form-card">
+                <div class="project-form-header">
+                    <h2>Add Gallery Image</h2>
+                    <p>Share a moment from the National 4-H GIS Leadership Team</p>
+                </div>
+                
+                <form method="POST" enctype="multipart/form-data" class="project-form">
+                    {{ form.hidden_tag() }}
+                    
+                    <div class="form-group">
+                        {{ form.title.label(class="form-label") }}
+                        {{ form.title(class="form-control", placeholder="Enter a descriptive title for the image") }}
+                        {% if form.title.errors %}
+                            <div class="error-messages">
+                                {% for error in form.title.errors %}
+                                    <span class="error">{{ error }}</span>
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                    </div>
+
+                    <div class="form-group">
+                        {{ form.description.label(class="form-label") }}
+                        {{ form.description(class="form-control", rows="4", placeholder="Describe what's happening in this image, when it was taken, and any important details") }}
+                        {% if form.description.errors %}
+                            <div class="error-messages">
+                                {% for error in form.description.errors %}
+                                    <span class="error">{{ error }}</span>
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                    </div>
+
+                    <div class="form-group">
+                        {{ form.image_file.label(class="form-label") }}
+                        {{ form.image_file(class="form-control", accept="image/*") }}
+                        <small class="form-help">Upload an image from your computer (JPG, PNG, GIF, WebP up to 16MB).</small>
+                        {% if form.image_file.errors %}
+                            <div class="error-messages">
+                                {% for error in form.image_file.errors %}
+                                    <span class="error">{{ error }}</span>
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                    </div>
+
+                    <div class="form-group">
+                        {{ form.submit(class="btn-primary") }}
+                    </div>
+                </form>
+                
+                <div class="project-form-links">
+                    <a href="{{ url_for('gallery') }}" class="btn btn-secondary">
+                        <i class="fas fa-arrow-left"></i> Back to Gallery
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html> 

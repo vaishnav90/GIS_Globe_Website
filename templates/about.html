@@ -1,0 +1,1107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About GIS Team</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap');
+        
+        :root {
+            --bg: #0a0a0a;
+            --bg-secondary: #111111;
+            --text: #ffffff;
+            --text-light: #ffffff;
+            --text-muted: #737373;
+            --border: #1f1f1f;
+            --border-light: #2a2a2a;
+            --highlight: #177a3b;
+            --highlight-light: #3fc16c;
+            --highlight-glow: rgba(23,122,59,0.2);
+            --card-bg: rgba(17, 17, 17, 0.8);
+            --transition: 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+            --transition-fast: 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            --section-spacing: 160px;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background: #000;
+            color: var(--text);
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            min-height: 100vh;
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Advanced background effects */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 30%, rgba(79, 70, 229, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 80% 70%, rgba(79, 70, 229, 0.1) 0%, transparent 50%),
+                linear-gradient(to bottom, rgba(10, 10, 10, 0.9), rgba(10, 10, 10, 0.95));
+            pointer-events: none;
+            z-index: -2;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 120px 40px 100px 40px;
+            position: relative;
+        }
+
+        /* Floating gradient accent */
+        .floating-accent {
+            position: fixed;
+            width: 600px;
+            height: 600px;
+            border-radius: 50%;
+            background: radial-gradient(circle, var(--highlight) 0%, transparent 70%);
+            filter: blur(80px);
+            opacity: 0.1;
+            z-index: -1;
+            animation: float 15s infinite alternate ease-in-out;
+        }
+
+        @keyframes float {
+            0% { transform: translate(-20%, -20%) scale(1); }
+            50% { transform: translate(20%, 20%) scale(1.2); }
+            100% { transform: translate(-20%, -20%) scale(1); }
+        }
+
+        .header {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            margin-bottom: var(--section-spacing);
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 0.8s 0.2s forwards;
+        }
+
+        .logo {
+            font-size: 2.5rem;
+            font-weight: 900;
+            letter-spacing: -0.05em;
+            line-height: 0.9;
+            background: linear-gradient(135deg, var(--highlight), var(--highlight-light));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            transition: transform var(--transition);
+            position: relative;
+        }
+
+        .logo:hover {
+            transform: scale(1.05);
+        }
+
+        .logo::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, var(--highlight), transparent);
+            transform: scaleX(0);
+            transform-origin: right;
+            transition: transform var(--transition);
+        }
+
+        .logo:hover::after {
+            transform: scaleX(1);
+            transform-origin: left;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 20px;
+        }
+
+        .nav-link {
+            color: var(--text-light);
+            text-decoration: none;
+            font-size: 1rem;
+            font-weight: 600;
+            transition: all var(--transition);
+            padding: 12px 24px;
+            border-radius: 50px;
+            backdrop-filter: blur(10px);
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .nav-link::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            transition: left var(--transition);
+        }
+
+        .nav-link:hover::before {
+            left: 100%;
+        }
+
+        .nav-link:hover {
+            color: var(--highlight);
+            border-color: var(--highlight);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 40px var(--highlight-glow);
+        }
+
+        .hero {
+            position: relative;
+            margin-bottom: var(--section-spacing);
+        }
+
+        .hero-title {
+            font-size: clamp(3rem, 8vw, 6rem);
+            font-weight: 900;
+            margin-bottom: 40px;
+            letter-spacing: -0.05em;
+            line-height: 0.95;
+            opacity: 0;
+            transform: translateY(50px);
+            animation: fadeInUp 1s 0.4s forwards;
+            background: linear-gradient(135deg, var(--highlight), var(--highlight-light));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-description {
+            color: var(--text-light);
+            font-size: 1.4rem;
+            font-weight: 500;
+            max-width: 700px;
+            margin-bottom: 80px;
+            line-height: 1.7;
+            opacity: 0;
+            transform: translateY(50px);
+            animation: fadeInUp 1s 0.6s forwards;
+        }
+
+        .hero-cta {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            padding: 16px 32px;
+            background: linear-gradient(135deg, var(--highlight), var(--highlight-light));
+            color: white;
+            font-weight: 700;
+            border-radius: 50px;
+            text-decoration: none;
+            transition: all var(--transition);
+            box-shadow: 0 10px 30px var(--highlight-glow);
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 1s 0.8s forwards;
+            border: none;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-cta:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 15px 50px var(--highlight-glow);
+        }
+
+        .hero-cta i {
+            transition: transform var(--transition);
+        }
+
+        .hero-cta:hover i {
+            transform: translateX(5px);
+        }
+
+        /* Side Entry Sections */
+        .side-entry-section {
+            margin-bottom: var(--section-spacing);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .side-entry-content {
+            display: flex;
+            align-items: center;
+            gap: 80px;
+            padding: 80px 0;
+        }
+
+        .side-entry-text {
+            flex: 1;
+            opacity: 0;
+            transform: translateX(-100px);
+            transition: all 1s var(--transition);
+        }
+
+        .side-entry-text.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .side-entry-image {
+            flex: 1;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+            transform: translateX(100px);
+            opacity: 0;
+            transition: all 1s var(--transition) 0.2s;
+        }
+
+        .side-entry-image.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .side-entry-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+            transition: transform var(--transition);
+        }
+
+        .side-entry-image:hover img {
+            transform: scale(1.05);
+        }
+
+        .side-entry-title {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 30px;
+            color: var(--highlight);
+            font-family: 'Space Grotesk', sans-serif;
+            position: relative;
+            display: inline-block;
+        }
+
+        .side-entry-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 100px;
+            height: 3px;
+            background: var(--highlight);
+            transition: width var(--transition);
+        }
+
+        .side-entry-text:hover .side-entry-title::after {
+            width: 150px;
+        }
+
+        .side-entry-description {
+            color: var(--text-light);
+            font-size: 1.2rem;
+            line-height: 1.8;
+            margin-bottom: 30px;
+        }
+
+        .side-entry-stats {
+            display: flex;
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .side-entry-stat {
+            text-align: center;
+        }
+
+        .side-entry-stat-number {
+            font-size: 2.5rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--highlight), var(--highlight-light));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 5px;
+        }
+
+        .side-entry-stat-label {
+            color: var(--text-light);
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        /* Alternate layout for even sections */
+        .side-entry-section:nth-child(even) .side-entry-content {
+            flex-direction: row-reverse;
+        }
+
+        .side-entry-section:nth-child(even) .side-entry-text {
+            transform: translateX(100px);
+        }
+
+        .side-entry-section:nth-child(even) .side-entry-image {
+            transform: translateX(-100px);
+        }
+
+        /* Expertise Carousel */
+        .expertise-section {
+            margin-bottom: var(--section-spacing);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .expertise-carousel {
+            position: relative;
+            width: 100%;
+            padding: 60px 0;
+        }
+
+        .expertise-track {
+            display: flex;
+            gap: 40px;
+            transition: transform 0.5s ease;
+            will-change: transform;
+        }
+
+        .expertise-card {
+            min-width: 300px;
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 24px;
+            padding: 40px;
+            backdrop-filter: blur(20px);
+            transition: all var(--transition);
+            transform: scale(0.95);
+            opacity: 0.7;
+            filter: blur(2px);
+        }
+
+        .expertise-card.active {
+            transform: scale(1);
+            opacity: 1;
+            border-color: var(--highlight);
+            box-shadow: 0 20px 60px var(--highlight-glow);
+            filter: none;
+        }
+        .expertise-card.faded {
+            opacity: 0.3;
+            filter: blur(3px);
+        }
+
+        .expertise-icon {
+            font-size: 2.5rem;
+            color: var(--highlight);
+            margin-bottom: 20px;
+            transition: transform var(--transition);
+        }
+
+        .expertise-card:hover .expertise-icon {
+            transform: scale(1.2) rotate(5deg);
+        }
+
+        .expertise-title {
+            font-size: 1.5rem;
+            font-weight: 800;
+            margin-bottom: 15px;
+            color: var(--text);
+            font-family: 'Space Grotesk', sans-serif;
+        }
+
+        .expertise-description {
+            color: var(--text-light);
+            font-size: 1rem;
+            line-height: 1.6;
+        }
+
+        .expertise-nav {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 10px;
+            z-index: 2;
+        }
+
+        .expertise-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: var(--border);
+            cursor: pointer;
+            transition: all var(--transition);
+        }
+
+        .expertise-dot.active {
+            background: var(--highlight);
+            transform: scale(1.2);
+        }
+
+        .expertise-arrow {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 50px;
+            height: 50px;
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all var(--transition);
+            z-index: 2;
+            color: var(--text-light);
+        }
+
+        .expertise-arrow:hover {
+            background: var(--highlight);
+            color: white;
+            border-color: var(--highlight);
+            box-shadow: 0 10px 30px var(--highlight-glow);
+        }
+
+        .expertise-arrow.prev {
+            left: 0;
+        }
+
+        .expertise-arrow.next {
+            right: 0;
+        }
+
+        /* Section Titles */
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 60px;
+            letter-spacing: -0.03em;
+            position: relative;
+            padding-left: 40px;
+            font-family: 'Space Grotesk', sans-serif;
+        }
+
+        .section-title::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 8px;
+            height: 80px;
+            background: linear-gradient(180deg, var(--highlight), var(--highlight-light));
+            border-radius: 4px;
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--bg-secondary);
+            padding: 80px 0;
+            text-align: center;
+            position: relative;
+        }
+
+        .footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--highlight), transparent);
+        }
+
+        .footer-logo {
+            font-size: 2rem;
+            font-weight: 900;
+            margin-bottom: 30px;
+            display: inline-block;
+            background: linear-gradient(135deg, var(--highlight), var(--highlight-light));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .footer-description {
+            color: var(--text-light);
+            font-size: 1.2rem;
+            margin-bottom: 40px;
+            line-height: 1.8;
+        }
+
+        .footer-social {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+
+        .footer-social a {
+            color: var(--text-light);
+            font-size: 1.5rem;
+            transition: all var(--transition);
+        }
+
+        .footer-social a:hover {
+            color: var(--highlight);
+            transform: translateY(-5px);
+        }
+
+        .footer-copyright {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        /* Scroll Animations */
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .side-entry-content {
+                flex-direction: column;
+                gap: 40px;
+            }
+
+            .side-entry-section:nth-child(even) .side-entry-content {
+                flex-direction: column;
+            }
+
+            .side-entry-text, 
+            .side-entry-section:nth-child(even) .side-entry-text {
+                transform: translateY(50px);
+            }
+
+            .side-entry-image,
+            .side-entry-section:nth-child(even) .side-entry-image {
+                transform: translateY(50px);
+            }
+
+            .expertise-card {
+                min-width: 250px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            :root {
+                --section-spacing: 100px;
+            }
+            
+            .container { 
+                padding: 80px 24px 60px 24px; 
+            }
+            
+            .header { 
+                flex-direction: column; 
+                gap: 24px; 
+                margin-bottom: 80px;
+            }
+            
+            .hero-title {
+                font-size: clamp(2.5rem, 12vw, 4rem);
+            }
+            
+            .hero-description {
+                font-size: 1.2rem;
+                margin-bottom: 60px;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+                margin-bottom: 40px;
+                padding-left: 30px;
+            }
+            
+            .section-title::before {
+                height: 60px;
+            }
+            
+            .side-entry-stats {
+                flex-direction: column;
+                gap: 20px;
+            }
+
+            .expertise-arrow {
+                width: 40px;
+                height: 40px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 60px 20px 40px 20px;
+            }
+            
+            .hero-title {
+                margin-bottom: 30px;
+            }
+            
+            .hero-description {
+                font-size: 1.1rem;
+            }
+            
+            .section-title {
+                font-size: 1.8rem;
+                padding-left: 20px;
+            }
+            
+            .section-title::before {
+                width: 5px;
+                height: 50px;
+            }
+            
+            .side-entry-title {
+                font-size: 2rem;
+            }
+            
+            .side-entry-description {
+                font-size: 1.1rem;
+            }
+
+            .expertise-card {
+                min-width: 220px;
+            }
+        }
+    </style>
+
+    <!-- Globe cursor -->
+    <style>
+    .globe-cursor {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 40px;
+        height: 40px;
+        pointer-events: none;
+        z-index: 9999;
+        transform: translate(-50%, -50%);
+        transition: filter 0.2s;
+    }
+    @media (max-width: 600px) {
+        .globe-cursor { display: none; }
+        }
+    </style>
+</head>
+<body>
+    <button id="mode-toggle" aria-label="Toggle light/dark mode">🌙</button>
+    <!-- Floating gradient accent -->
+    <div class="floating-accent"></div>
+    
+    <div class="container">
+        <div class="header">
+            <a href="/" class="logo">4-H NATIONAL<br>GIS TEAM</a>
+            <div class="nav-links">
+                <a href="/" class="nav-link"><i class="fas fa-arrow-left"></i> Back Home</a>
+                <a href="#contact" class="nav-link"><i class="fas fa-envelope"></i> Contact</a>
+            </div>
+        </div>
+        
+        <div class="hero">
+            <h1 class="hero-title">Our Mission</h1>
+            <p class="hero-description">
+                The National 4-H Geospatial Leadership Team is dedicated to empowering young leaders to engage in meaningful research and public service projects that tackle real-world challenges across the nation.
+            </p>
+            <p class="hero-description">
+                Through cutting-edge training in <strong>GIS (Geographic Information Systems)</strong> and <strong>GPS (Global Positioning Systems)</strong>, we equip our members with the skills to drive impactful change in their communities.
+            </p>
+            <p class="hero-description">
+                By fostering collaboration with educational institutions, government agencies, and community organizations, we inspire youth to become leaders in data-driven decision-making, environmental sustainability, and community development.
+            </p>
+        </div>
+        <div class="side-entry-section">
+            <h2 class="section-title">Who We Are</h2>
+            <div class="side-entry-content">
+                <div class="side-entry-text left" style="max-width: 900px;">
+                    <p class="side-entry-description">
+                        <strong>Founded in 2003 by Thomas Tate</strong>, a National Program Leader at the USDA, the National 4-H Geospatial Team empowers youth with GIS—a powerful tool that allows students to visualize, analyze, and address real-world challenges.
+                    </p>
+                    <ul class="side-entry-description">
+                        <li>Equipping young leaders nationwide to research and develop solutions in agriculture, public health, sustainability, and urban planning.</li>
+                        <li>Using geospatial technology to drive meaningful impact in their communities.</li>
+                    </ul>
+                    <p class="side-entry-description">
+                        <strong>Our reach extends beyond national borders:</strong>
+                    </p>
+                    <ul class="side-entry-description">
+                        <li>Members have traveled to Panama to educate underprivileged youth on using GIS for environmental conservation, infrastructure planning, and water accessibility.</li>
+                        <li>Delegates attend the Esri User Conference—the world’s largest GIS gathering—networking with industry leaders, attending workshops, and presenting research.</li>
+                    </ul>
+                    <p class="side-entry-description">
+                        <strong>At home, we address:</strong>
+                    </p>
+                    <ul class="side-entry-description">
+                        <li>Food security (NOURISH: mapping food distribution and accessibility)</li>
+                        <li>Public health (Tobacco-Free Park Policy Assessment, 3D Modeling of the Poe Center for Health Education)</li>
+                        <li>Policy analysis and cultural preservation (Mapping Hidden Gems Across America, Mapping American Art Icons, The Bison’s Story: Mapping America’s Frontier)</li>
+                    </ul>
+                    <p class="side-entry-description">
+                        Our youth members are proving that GIS is more than just a tool—it’s a platform for change. Through their work, the National 4-H Geospatial Team is shaping the next generation of geospatial innovators, problem-solvers, and leaders ready to tackle the challenges of today and tomorrow.
+                    </p>
+                        </div>
+                        </div>
+                    </div>
+        <div class="side-entry-section">
+            <h2 class="section-title">Staying True to the 4-H Mission</h2>
+            <div class="side-entry-content reverse">
+                <div class="side-entry-text right" style="max-width: 900px;">
+                    <p class="side-entry-description">
+                        The National 4-H Geospatial Team embodies the 4-H pledge:
+                    </p>
+                    <blockquote class="side-entry-description" style="font-style:italic; margin: 1em 0; border-left: 4px solid var(--highlight); padding-left: 1em;">
+                        “Head for clearer thinking, Heart for greater loyalty, Hands for larger service, and Health for better living.”
+                    </blockquote>
+                    <p class="side-entry-description">
+                        Every year, our members take on service projects—leveraging GIS to support communities and ensure youth leaders give back while applying geospatial skills in public service.
+                    </p>
+                </div>
+                </div>
+            </div>
+        <div class="side-entry-section" id="leadership">
+            <h2 class="section-title">Leading the Next Generation of GIS Innovators</h2>
+            <div class="side-entry-content">
+                <div class="side-entry-text left" style="max-width: 900px;">
+                    <p class="side-entry-description">
+                        <strong>Under the leadership of Brandon Estevez, Vrishab Nooka and Srajan Rastogi</strong>, the National 4-H Geospatial Team has made significant strides in growing its impact:
+                    </p>
+                    <ul class="side-entry-description">
+                        <li>Revamped administrative frameworks, improving team structure and project efficiency.</li>
+                        <li>Led 14+ projects, 3 team-wide initiatives, and 1 national project focused on youth-driven GIS research.</li>
+                        <li>Re-established a stable presence in North Carolina & California, strengthening university and organizational partnerships.</li>
+                        <li>Expanded outreach across 5 states & 3 time zones, ensuring nationwide participation and recruitment.</li>
+                        <li>Presented at 3+ major conferences to over 250 attendees as of February 2025.</li>
+                        <li>Held 28+ weekly check-ins covering project briefings, career panels, GIS training, and professional development.</li>
+                        <li>Archived 25+ years of geospatial projects & data, ensuring our work lives on for future leaders.</li>
+                        <li>Partnered with NC State University & UNC Charlotte for mentorship and research-driven youth engagement.</li>
+                        <li>Developed a strong digital presence on Instagram, YouTube, and LinkedIn, amplifying our impact.</li>
+                        <li>Secured a partnership with Google, providing team members with a platform to collaborate safely and efficiently using Google Workspace Education Fundamentals.</li>
+                        <li>Managed over $1.6M in GIS licenses and facilitated the use of $700,000 in ArcGIS Online credits for youth research in agriculture, medicine, business, and public policy.</li>
+                    </ul>
+                        </div>
+                        </div>
+                    </div>
+        <div class="side-entry-section" id="explore-work">
+            <h2 class="section-title">Explore Our Work</h2>
+            <div class="side-entry-content reverse">
+                <div class="side-entry-text right" style="max-width: 900px;">
+                    <p class="side-entry-description">
+                        Curious about the groundbreaking projects we've been working on? Click <a href="/projects" style="color:var(--highlight);text-decoration:underline;">Our Work</a> to see the full scope of our impact, or check out our team portfolio on the homepage!
+                    </p>
+                    <ul class="side-entry-description">
+                        <li>Connect with Brandon Estevez: <a href="#" style="color:var(--highlight);text-decoration:underline;">Follow him on LinkedIn</a>.</li>
+                        <li>Stay Connected: <a href="#" style="color:var(--highlight);text-decoration:underline;">Follow our team on LinkedIn</a> to see how youth are using GIS for research and impact.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="side-entry-section" id="mapping-change">
+            <h2 class="section-title">Mapping Change, One Project at a Time</h2>
+            <div class="side-entry-content">
+                <div class="side-entry-text left" style="max-width: 900px;">
+                    <p class="side-entry-description">
+                        Empowering youth with GIS technology to make a real-world impact.
+                    </p>
+                    </div>
+                    </div>
+                    </div>
+        <div class="side-entry-section" id="gallery">
+            <h2 class="section-title">Gallery</h2>
+            <div class="side-entry-content reverse">
+                <div class="side-entry-text right" style="max-width: 900px;">
+                    <ul class="side-entry-description">
+                        <li>A map analyzing alternative transportation pathways in Raleigh, North Carolina</li>
+                        <li>A career night presentation by Dr. Joseph Kerski at a weekly check-in</li>
+                        <li>Presentation by Brandon Estevez at NC State Extension Conference 2025 in Greensboro, NC</li>
+                        <li>Our youth-led and active Instagram page!</li>
+                        <li>Our Google Classroom that contains all of our geospatial training and educational curriculum for team members!</li>
+                    </ul>
+                    </div>
+                    </div>
+                </div>
+        <div class="side-entry-section" id="what-we-do">
+            <h2 class="section-title">What Do We Do?</h2>
+            <div class="side-entry-content">
+                <div class="side-entry-text left" style="max-width: 900px;">
+                    <p class="side-entry-description">
+                        The National 4-H Geospatial Team is a powerhouse of youth-driven innovation, empowering students to explore geospatial technology while making a tangible impact in their communities. Our team engages in a wide range of activities that build leadership, technical expertise, and real-world problem-solving skills.
+                    </p>
+                    <ul class="side-entry-description">
+                        <li>Workshops & Training: Teaching GIS and spatial thinking through hands-on learning experiences.</li>
+                        <li>Weekly Check-ins: Covering project briefings, geospatial training, and Career Nights featuring industry professionals, educators and government officials.</li>
+                        <li>Individual Research Projects: Youth-led studies in fields like agriculture, environmental science, and public health, using GIS to analyze real-world data.</li>
+                        <li>Conferences: Presenting our work at major events like the Esri User Conference, NC State Extension, and national STEM summits.</li>
+                        <li>Community Engagement: Partnering with local organizations and schools to introduce GIS to youth and educators.</li>
+                        <li>Expanding Our Portfolio: Documenting our success through StoryMaps, ArcGIS Hub sites, and national impact reports.</li>
+                        <li>Industry Collaboration: Working with partners like Esri, NC State University, and Google to expand opportunities for youth in geospatial fields.</li>
+                    </ul>
+                    <p class="side-entry-description">
+                        Whether you're a student, educator, or industry professional, there's a place for you to learn, engage, and contribute with the National 4-H Geospatial Team. Join us in shaping the future of GIS!
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <footer class="footer" id="contact">
+        <div class="container">
+            <div class="footer-logo">4-H GIS TEAM</div>
+            <p class="footer-description">
+                We're passionate about using geospatial technology to make a difference. Get in touch to learn more about our work or discuss potential collaborations.
+            </p>
+            <div class="footer-social">
+                <a href="#"><i class="fab fa-twitter"></i></a>
+                <a href="#"><i class="fab fa-linkedin"></i></a>
+                <a href="#"><i class="fab fa-github"></i></a>
+                <a href="#"><i class="fab fa-instagram"></i></a>
+            </div>
+            <p class="footer-copyright">© 2023 4-H National GIS Team. All rights reserved.</p>
+            <p class="footer-copyright">Made by: <a href="https://www.linkedin.com/in/vaishnav-anand/" target="_blank" style="color: var(--highlight); text-decoration: none;">Vaishnav Anand</a></p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Hide default cursor
+            document.body.style.cursor = 'none';
+            // Add globe cursor element
+            const globe = document.createElement('img');
+            globe.src = 'static/images/Clover.png'; // Cartoon globe SVG with transparent background
+            globe.className = 'globe-cursor';
+            document.body.appendChild(globe);
+            // Move globe with mouse
+            document.addEventListener('mousemove', function(e) {
+                globe.style.left = e.clientX + 'px';
+                globe.style.top = e.clientY + 'px';
+            });
+
+            // Side entry animations
+            const sideEntryObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const content = entry.target.querySelector('.side-entry-content');
+                        const text = content.querySelector('.side-entry-text');
+                        const image = content.querySelector('.side-entry-image');
+                        
+                        text.classList.add('visible');
+                        image.classList.add('visible');
+                    }
+                });
+            }, { threshold: 0.1 });
+            
+            document.querySelectorAll('.side-entry-section').forEach(section => {
+                sideEntryObserver.observe(section);
+            });
+            
+            // Expertise Carousel
+            const expertiseTrack = document.querySelector('.expertise-track');
+            const expertiseCards = document.querySelectorAll('.expertise-card');
+            const expertiseDots = document.querySelectorAll('.expertise-dot');
+            const prevBtn = document.querySelector('.expertise-arrow.prev');
+            const nextBtn = document.querySelector('.expertise-arrow.next');
+            
+            let currentIndex = 0;
+            const cardWidth = expertiseCards[0].offsetWidth + 40; // width + gap
+            
+            function updateCarousel() {
+                expertiseTrack.style.transform = `translateX(-${currentIndex * cardWidth}px)`;
+                
+                // Update active card and dot
+                expertiseCards.forEach((card, index) => {
+                    card.classList.remove('active', 'faded');
+                    if (index === currentIndex) {
+                        card.classList.add('active');
+                    } else if (index === currentIndex - 1 || (currentIndex === 0 && index === expertiseCards.length - 1)) {
+                        card.classList.add('faded');
+                    }
+                });
+                
+                expertiseDots.forEach((dot, index) => {
+                    dot.classList.toggle('active', index === currentIndex);
+                });
+            }
+            
+            function nextSlide() {
+                currentIndex = (currentIndex + 1) % expertiseCards.length;
+                updateCarousel();
+            }
+            
+            function prevSlide() {
+                currentIndex = (currentIndex - 1 + expertiseCards.length) % expertiseCards.length;
+                updateCarousel();
+            }
+            
+            // Auto-advance carousel
+            let carouselInterval = setInterval(nextSlide, 4000);
+            
+            function resetInterval() {
+                clearInterval(carouselInterval);
+                carouselInterval = setInterval(nextSlide, 4000);
+            }
+            
+            // Event listeners
+            nextBtn.addEventListener('click', () => {
+                nextSlide();
+                resetInterval();
+            });
+            
+            prevBtn.addEventListener('click', () => {
+                prevSlide();
+                resetInterval();
+            });
+            
+            expertiseDots.forEach((dot, index) => {
+                dot.addEventListener('click', () => {
+                    currentIndex = index;
+                    updateCarousel();
+                    resetInterval();
+                });
+            });
+            
+            // Pause on hover
+            expertiseTrack.addEventListener('mouseenter', () => {
+                clearInterval(carouselInterval);
+            });
+            
+            expertiseTrack.addEventListener('mouseleave', () => {
+                resetInterval();
+            });
+            
+            // Smooth scroll for anchor links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    const targetId = this.getAttribute('href');
+                    if (targetId === '#') return;
+                    
+                    const targetElement = document.querySelector(targetId);
+                    if (targetElement) {
+                        targetElement.scrollIntoView({
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+            
+            // Floating accent animation
+            window.addEventListener('scroll', function() {
+                const scrolled = window.pageYOffset;
+                const blob = document.querySelector('.floating-accent');
+                const rate = scrolled * -0.3;
+                
+                if (blob) {
+                    blob.style.transform = `translate(-20%, calc(-20% + ${rate}px)) scale(1)`;
+                }
+            });
+        });
+    </script>
+    <script>
+document.addEventListener('DOMContentLoaded', function() {
+    function setMode(mode) {
+        if (mode === 'light') {
+            document.body.classList.add('light-mode');
+            document.body.classList.remove('dark-mode');
+            localStorage.setItem('theme', 'light');
+            document.getElementById('mode-toggle').textContent = '☀️';
+        } else {
+            document.body.classList.remove('light-mode');
+            document.body.classList.add('dark-mode');
+            localStorage.setItem('theme', 'dark');
+            document.getElementById('mode-toggle').textContent = '🌙';
+        }
+    }
+    var modeToggle = document.getElementById('mode-toggle');
+    modeToggle.addEventListener('click', function() {
+        setMode(document.body.classList.contains('light-mode') ? 'dark' : 'light');
+    });
+    setMode(localStorage.getItem('theme') === 'light' ? 'light' : 'dark');
+});
+</script>
+<style>
+#mode-toggle {
+    position: fixed;
+    top: 24px;
+    right: 32px;
+    z-index: 2000;
+    background: rgba(255,255,255,0.8);
+    border: none;
+    border-radius: 50%;
+    width: 44px;
+    height: 44px;
+    font-size: 1.5rem;
+    cursor: pointer;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    transition: background 0.2s;
+    pointer-events: auto;
+}
+#mode-toggle:hover {
+    background: #eaeaea;
+}
+body.light-mode {
+    background: #fff !important;
+    color: #111 !important;
+}
+body.light-mode .side-entry-description,
+body.light-mode .next-up-label,
+body.light-mode .hero-description,
+body.light-mode .section-title,
+body.light-mode .hero-title,
+body.light-mode .about-projects-btn,
+body.light-mode .next-up-btn,
+body.light-mode .nav-link {
+    color: #111 !important;
+}
+body.light-mode .about-projects-btn:hover,
+body.light-mode .next-up-btn:hover {
+    color: #fff;
+    -webkit-text-stroke: 2px #177a3b;
+    text-stroke: 2px #177a3b;
+}
+body.light-mode .nav-link {
+    color: #111 !important;
+    background: #fff !important;
+    border: 2px solid #111 !important;
+    box-shadow: none !important;
+}
+body.light-mode .nav-link:hover {
+    color: #fff !important;
+    background: #111 !important;
+    border: 2px solid #111 !important;
+}
+body.dark-mode {
+    background: #000 !important;
+    color: #fff !important;
+}
+body::before, body::after {
+    background: none !important;
+    background-image: none !important;
+    box-shadow: none !important;
+}
+</style>
+</body>
+</html>

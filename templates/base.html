@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Vaishnav Anand{% endblock %}</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <!-- <link rel="stylesheet" href="{{ url_for('static', filename='css/terminal.css') }}"> -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css">
+</head>
+<body class="terminal-page {% block body_class %}{% endblock %}">
+    <!-- <button class="modern-view-toggle">
+        <i class="fas fa-window-maximize"></i> Switch to Modern View
+    </button>
+
+    <div class="terminal-nav">
+        <div class="terminal-output"></div>
+        <div class="terminal-input-line">
+            <span class="prompt">$</span>
+            <input type="text" class="terminal-input terminal-font" spellcheck="false" autocomplete="off">
+            <div class="terminal-input-display"></div>
+            <span class="cursor"></span>
+        </div>
+    </div> -->
+
+    <nav class="navbar">
+        <div class="navbar-brand">
+            <a href="/" class="navbar-brand">VA</a>
+        </div>
+        <ul class="navbar-nav">
+            <li><a href="/" class="nav-link {% if request.endpoint == 'index' %}active{% endif %}">Home</a></li>
+            <li><a href="/about" class="nav-link {% if request.endpoint == 'about' %}active{% endif %}">About</a></li>
+            <li><a href="/projects" class="nav-link {% if request.endpoint == 'projects' %}active{% endif %}">Projects</a></li>
+            <li><a href="/gallery" class="nav-link {% if request.endpoint == 'gallery' %}active{% endif %}">Gallery</a></li>
+            <li><a href="/contact" class="nav-link {% if request.endpoint == 'contact' %}active{% endif %}">Contact</a></li>
+            <li><a href="/national-4h-gis-team" class="nav-link {% if request.endpoint == 'national_4h_gis_team' %}active{% endif %}">National 4-H GIS Team Pictures</a></li>
+            <li><a href="/team" class="nav-link {% if request.endpoint == 'team' %}active{% endif %}">Our Team</a></li>
+        </ul>
+        <div class="auth-nav">
+            {% if current_user.is_authenticated %}
+                <span class="welcome-text">Welcome, {{ current_user.username }}!</span>
+                <a href="/profile" class="nav-link">Profile</a>
+                <a href="/logout" class="nav-link">Logout</a>
+            {% else %}
+                <a href="/login" class="nav-link">Login</a>
+                <a href="/register" class="nav-link">Register</a>
+            {% endif %}
+        </div>
+        <div class="menu-toggle">
+            <i class="fas fa-bars"></i>
+        </div>
+    </nav>
+
+    <main>
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                <div class="flash-messages">
+                    {% for category, message in messages %}
+                        <div class="alert alert-{{ category }}">
+                            {{ message }}
+                            <button type="button" class="close-btn" onclick="this.parentElement.remove()">&times;</button>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        {% endwith %}
+        {% block content %}{% endblock %}
+    </main>
+
+    <footer>
+        <div class="social-links">
+            <a href="mailto:vaishnavanand90@gmail.com" target="_blank"><i class="fas fa-envelope"></i></a>
+            <a href="https://github.com/vaishnav90" target="_blank"><i class="fab fa-github"></i></a>
+            <a href="https://linkedin.com/in/vaishnavanand" target="_blank"><i class="fab fa-linkedin"></i></a>
+        </div>
+        <div class="auth-links-footer">
+            {% if current_user.is_authenticated %}
+                <span class="welcome-text-footer">Welcome, {{ current_user.username }}!</span>
+                <a href="/profile" class="footer-link">Profile</a>
+                <a href="/logout" class="footer-link">Logout</a>
+            {% else %}
+                <a href="/login" class="footer-link">Login</a>
+                <a href="/register" class="footer-link">Register</a>
+            {% endif %}
+        </div>
+        <p>&copy; 2024 Vaishnav Anand. All rights reserved.</p>
+        <p>Made by: <a href="https://www.linkedin.com/in/vaishnav-anand/" target="_blank" style="color: #177a3b; text-decoration: none;">Vaishnav Anand</a></p>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+    <!-- <script src="{{ url_for('static', filename='js/terminal.js') }}"></script> -->
+</body>
+</html> 

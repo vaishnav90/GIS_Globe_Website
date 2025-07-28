@@ -1,0 +1,973 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Team - National 4-H GIS Team</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap');
+        
+        :root {
+            --bg: #0a0a0a;
+            --bg-secondary: #111111;
+            --text: #ffffff;
+            --text-light: #ffffff;
+            --text-muted: #737373;
+            --border: #1f1f1f;
+            --border-light: #2a2a2a;
+            --highlight: #177a3b;
+            --highlight-light: #3fc16c;
+            --highlight-glow: rgba(23,122,59,0.2);
+            --card-bg: rgba(17, 17, 17, 0.8);
+            --transition: 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+            --transition-fast: 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            --section-spacing: 160px;
+        }
+
+        /* Light Mode Variables */
+        html[data-theme="light"] {
+            --bg: #ffffff;
+            --bg-secondary: #ffffff;
+            --text: #1a1a1a;
+            --text-light: #2d2d2d;
+            --text-muted: #6b7280;
+            --border: #e5e7eb;
+            --border-light: #f3f4f6;
+            --highlight: #059669;
+            --highlight-light: #10b981;
+            --highlight-glow: rgba(5, 150, 105, 0.1);
+            --card-bg: #ffffff;
+        }
+
+        @media (prefers-color-scheme: light) {
+            html:not([data-theme]) {
+                --bg: #ffffff;
+                --bg-secondary: #ffffff;
+                --text: #1a1a1a;
+                --text-light: #2d2d2d;
+                --text-muted: #6b7280;
+                --border: #e5e7eb;
+                --border-light: #f3f4f6;
+                --highlight: #059669;
+                --highlight-light: #10b981;
+                --highlight-glow: rgba(5, 150, 105, 0.1);
+                --card-bg: #ffffff;
+            }
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background: var(--bg);
+            color: var(--text);
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            min-height: 100vh;
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Advanced background effects */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                linear-gradient(to bottom, rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.95));
+            pointer-events: none;
+            z-index: -2;
+        }
+
+        /* Light mode background */
+        html[data-theme="light"] body::before {
+            background: transparent;
+        }
+
+        /* Force pure white background in light mode */
+        html[data-theme="light"] {
+            background: #ffffff !important;
+        }
+        
+        html[data-theme="light"] body {
+            background: #ffffff !important;
+        }
+
+        html[data-theme="light"] html {
+            background: #ffffff !important;
+        }
+
+        /* NUCLEAR OPTION - Complete light mode override */
+        html[data-theme="light"] {
+            background: #ffffff !important;
+        }
+        
+        html[data-theme="light"] body {
+            background: #ffffff !important;
+        }
+
+        html[data-theme="light"] html {
+            background: #ffffff !important;
+        }
+
+        html[data-theme="light"] .container {
+            background: #ffffff !important;
+        }
+
+        /* Hide ALL possible overlay elements */
+        html[data-theme="light"] body::before,
+        html[data-theme="light"] body::after,
+        html[data-theme="light"] .floating-accent,
+        html[data-theme="light"] *::before,
+        html[data-theme="light"] *::after {
+            display: none !important;
+            visibility: hidden !important;
+            opacity: 0 !important;
+        }
+
+        /* Force white on everything except text elements */
+        html[data-theme="light"] * {
+            background: #ffffff !important;
+            background-color: #ffffff !important;
+            box-shadow: none !important;
+            filter: none !important;
+            backdrop-filter: none !important;
+            -webkit-backdrop-filter: none !important;
+        }
+
+        /* Preserve text colors and effects */
+        html[data-theme="light"] .logo,
+        html[data-theme="light"] .hero-title,
+        html[data-theme="light"] .section-title,
+        html[data-theme="light"] h1,
+        html[data-theme="light"] h2,
+        html[data-theme="light"] h3,
+        html[data-theme="light"] p,
+        html[data-theme="light"] span,
+        html[data-theme="light"] div {
+            background: initial !important;
+            background-color: initial !important;
+            -webkit-text-fill-color: initial !important;
+        }
+
+        /* Override any inline styles */
+        html[data-theme="light"] *[style] {
+            background: #ffffff !important;
+            background-color: #ffffff !important;
+        }
+
+        /* Keep green titles visible in light mode */
+        html[data-theme="light"] .logo {
+            background: linear-gradient(135deg, #059669, #10b981) !important;
+            -webkit-background-clip: text !important;
+            -webkit-text-fill-color: transparent !important;
+            background-clip: text !important;
+            color: transparent !important;
+        }
+
+        html[data-theme="light"] .hero-title {
+            background: linear-gradient(135deg, #059669, #10b981) !important;
+            -webkit-background-clip: text !important;
+            -webkit-text-fill-color: transparent !important;
+            background-clip: text !important;
+            color: transparent !important;
+        }
+
+        html[data-theme="light"] .section-title {
+            color: #1a1a1a !important;
+            background: none !important;
+            -webkit-text-fill-color: initial !important;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 120px 40px 100px 40px;
+            position: relative;
+        }
+
+        /* Floating gradient accent */
+        .floating-accent {
+            position: fixed;
+            width: 600px;
+            height: 600px;
+            border-radius: 50%;
+            background: radial-gradient(circle, var(--highlight) 0%, transparent 70%);
+            filter: blur(80px);
+            opacity: 0.1;
+            z-index: -1;
+            animation: float 15s infinite alternate ease-in-out;
+        }
+
+        /* Light mode floating accent */
+        html[data-theme="light"] .floating-accent {
+            display: none !important;
+        }
+
+        @keyframes float {
+            0% { transform: translate(-20%, -20%) scale(1); }
+            50% { transform: translate(20%, 20%) scale(1.2); }
+            100% { transform: translate(-20%, -20%) scale(1); }
+        }
+
+        .header {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            margin-bottom: var(--section-spacing);
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 0.8s 0.2s forwards;
+        }
+
+        .logo {
+            font-size: 2.5rem;
+            font-weight: 900;
+            letter-spacing: -0.05em;
+            line-height: 0.9;
+            background: linear-gradient(135deg, var(--highlight), var(--highlight-light));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            transition: transform var(--transition);
+            position: relative;
+        }
+
+        .logo:hover {
+            transform: scale(1.05);
+        }
+
+        .logo::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, var(--highlight), transparent);
+            transform: scaleX(0);
+            transform-origin: right;
+            transition: transform var(--transition);
+        }
+
+        .logo:hover::after {
+            transform: scaleX(1);
+            transform-origin: left;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 20px;
+        }
+
+        .nav-link {
+            color: var(--text-light);
+            text-decoration: none;
+            font-size: 1rem;
+            font-weight: 600;
+            transition: all var(--transition);
+            padding: 12px 24px;
+            border-radius: 50px;
+            backdrop-filter: blur(10px);
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .nav-link:hover {
+            background: var(--highlight);
+            color: var(--text);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px var(--highlight-glow);
+        }
+
+        .hero {
+            margin-bottom: var(--section-spacing);
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 0.8s 0.4s forwards;
+        }
+
+        .hero-title {
+            font-size: clamp(3rem, 8vw, 6rem);
+            font-weight: 900;
+            background: linear-gradient(135deg, var(--highlight) 0%, var(--highlight-light) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 2rem;
+            letter-spacing: -0.05em;
+            line-height: 0.95;
+        }
+
+        .hero-description {
+            font-size: 1.25rem;
+            color: var(--text-light);
+            margin-bottom: 1.5rem;
+            max-width: 800px;
+            line-height: 1.7;
+        }
+
+        .side-entry-section {
+            margin-bottom: var(--section-spacing);
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 0.8s 0.6s forwards;
+        }
+
+        .side-entry-section:nth-child(4) { animation-delay: 0.8s; }
+        .side-entry-section:nth-child(5) { animation-delay: 1.0s; }
+        .side-entry-section:nth-child(6) { animation-delay: 1.2s; }
+
+        .section-title {
+            font-size: clamp(2.5rem, 6vw, 4rem);
+            font-weight: 900;
+            color: var(--text);
+            margin-bottom: 3rem;
+            letter-spacing: -0.05em;
+            line-height: 0.95;
+        }
+
+        .side-entry-content {
+            display: flex;
+            align-items: flex-start;
+            gap: 4rem;
+        }
+
+        .side-entry-content.reverse {
+            flex-direction: row-reverse;
+        }
+
+        .side-entry-text {
+            flex: 1;
+        }
+
+        .side-entry-description {
+            font-size: 1.125rem;
+            color: var(--text-light);
+            margin-bottom: 1.5rem;
+            line-height: 1.7;
+        }
+
+        .side-entry-description ul {
+            margin-left: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .side-entry-description li {
+            margin-bottom: 0.75rem;
+        }
+
+        /* Team Grid Styles */
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .team-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 2rem;
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .team-card:hover {
+            transform: translateY(-8px);
+            border-color: var(--highlight);
+            box-shadow: 0 20px 40px var(--highlight-glow);
+        }
+
+        .team-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--highlight) 0%, var(--highlight-light) 100%);
+            transform: scaleX(0);
+            transition: var(--transition);
+        }
+
+        .team-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .team-card h3 {
+            font-size: 1.5rem;
+            font-weight: 900;
+            color: var(--text);
+            margin-bottom: 0.5rem;
+            letter-spacing: -0.02em;
+        }
+
+        .team-card .title {
+            font-size: 1rem;
+            font-weight: 500;
+            color: var(--highlight);
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .team-card .description {
+            font-size: 0.95rem;
+            color: var(--text-light);
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+        }
+
+        .team-card .linkedin-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: var(--transition-fast);
+        }
+
+        .team-card .linkedin-link:hover {
+            color: var(--highlight);
+        }
+
+        .team-card .linkedin-link i {
+            font-size: 1rem;
+        }
+
+        /* Alumni specific styles */
+        .alumni-card .year {
+            display: inline-block;
+            background: var(--highlight);
+            color: var(--text);
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .alumni-card .board-note {
+            display: inline-block;
+            background: rgba(23, 122, 59, 0.1);
+            color: var(--highlight);
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            margin-top: 1rem;
+            border: 1px solid rgba(23, 122, 59, 0.2);
+        }
+
+        /* Team Actions */
+        .team-actions {
+            margin-bottom: 2rem;
+        }
+
+        .action-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 600;
+            transition: var(--transition-fast);
+            border: none;
+            cursor: pointer;
+        }
+
+        .add-btn {
+            background: var(--highlight);
+            color: var(--text);
+        }
+
+        .add-btn:hover {
+            background: var(--highlight-light);
+            transform: translateY(-2px);
+        }
+
+
+
+        .delete-btn {
+            background: rgba(220, 53, 69, 0.1);
+            color: #dc3545;
+            border: 1px solid rgba(220, 53, 69, 0.2);
+        }
+
+        .delete-btn:hover {
+            background: rgba(220, 53, 69, 0.2);
+            transform: translateY(-2px);
+        }
+
+        .team-card-actions {
+            display: flex;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--bg-secondary);
+            border-top: 1px solid var(--border);
+            padding: 4rem 0;
+            margin-top: var(--section-spacing);
+        }
+
+        .footer-logo {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 2rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--highlight), var(--highlight-light));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 1rem;
+        }
+
+        .footer-description {
+            font-size: 1.125rem;
+            color: var(--text-light);
+            margin-bottom: 2rem;
+            max-width: 600px;
+        }
+
+        .footer-social {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-social a {
+            color: var(--text-muted);
+            font-size: 1.5rem;
+            transition: var(--transition-fast);
+        }
+
+        .footer-social a:hover {
+            color: var(--highlight);
+            transform: translateY(-2px);
+        }
+
+        .footer-copyright {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Mode toggle button */
+        #mode-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            color: var(--text);
+            padding: 12px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1.2rem;
+            z-index: 1000;
+            transition: var(--transition);
+        }
+
+        #mode-toggle:hover {
+            background: var(--highlight);
+            transform: scale(1.1);
+        }
+
+        /* Globe cursor */
+        .globe-cursor {
+            position: fixed;
+            width: 40px;
+            height: 40px;
+            pointer-events: none;
+            z-index: 9999;
+            transform: translate(-50%, -50%);
+            transition: filter 0.2s;
+        }
+
+        /* Light mode footer */
+        html[data-theme="light"] .footer {
+            background: rgba(255, 255, 255, 0.9);
+            color: var(--text);
+        }
+
+        html[data-theme="light"] .footer a {
+            color: var(--highlight);
+        }
+
+        html[data-theme="light"] .footer a:hover {
+            color: var(--text);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .container {
+                padding: 100px 20px 80px 20px;
+            }
+
+            .header {
+                flex-direction: column;
+                gap: 2rem;
+                align-items: flex-start;
+            }
+
+            .nav-links {
+                flex-wrap: wrap;
+            }
+
+            .side-entry-content {
+                flex-direction: column;
+                gap: 2rem;
+            }
+
+            .side-entry-content.reverse {
+                flex-direction: column;
+            }
+
+            .team-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+
+            .hero-title {
+                font-size: clamp(2.5rem, 10vw, 4rem);
+            }
+
+            .section-title {
+                font-size: clamp(2rem, 8vw, 3rem);
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 80px 16px 60px 16px;
+            }
+
+            .team-card {
+                padding: 1.5rem;
+            }
+
+            .nav-links {
+                flex-direction: column;
+                gap: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <button id="mode-toggle" aria-label="Toggle light/dark mode">🌙</button>
+    <!-- Floating gradient accent -->
+    <div class="floating-accent"></div>
+    
+    <div class="container">
+        <div class="header">
+            <a href="/" class="logo">4-H NATIONAL<br>GIS TEAM</a>
+            <div class="nav-links">
+                <a href="/" class="nav-link"><i class="fas fa-arrow-left"></i> Back Home</a>
+                <a href="#contact" class="nav-link"><i class="fas fa-envelope"></i> Contact</a>
+            </div>
+        </div>
+        
+        <div class="hero">
+            <h1 class="hero-title">Our Team</h1>
+            <p class="hero-description">
+                Meet the dedicated professionals and alumni who drive innovation in GIS education and youth development. Our board of directors brings decades of combined experience in geospatial technology, education, and youth leadership.
+            </p>
+            <p class="hero-description">
+                From founding members who established our mission to current leaders shaping the future of GIS education, each team member contributes unique expertise and passion for empowering the next generation of geospatial innovators.
+            </p>
+        </div>
+
+        <div class="side-entry-section">
+            <h2 class="section-title">Our Board of Directors</h2>
+            <div class="side-entry-content">
+                <div class="side-entry-text left">
+                    <p class="side-entry-description">
+                        Our board of directors consists of experienced leaders who have dedicated their careers to advancing GIS education and youth development. Each member brings unique expertise from government, academia, industry, and non-profit sectors.
+                    </p>
+                    {% if current_user.is_authenticated and current_user.email.endswith('@national4hgeospatialteam.us') %}
+                    <div class="team-actions">
+                        <a href="{{ url_for('add_team_member') }}" class="action-btn add-btn">
+                            <i class="fas fa-plus"></i> Add Board Member
+                        </a>
+                    </div>
+                    {% endif %}
+                    <div class="team-grid">
+                        {% if team_members %}
+                                                    {% for member in team_members if member.member_type == 'board' %}
+                        <div class="team-card">
+                            <h3>{{ member.name }}</h3>
+                            <div class="title">{{ member.title }}</div>
+                            <div class="description">
+                                {{ member.description }}
+                            </div>
+                            <a href="{{ member.linkedin_url or '#' }}" class="linkedin-link" target="_blank">
+                                <i class="fab fa-linkedin"></i>
+                                LinkedIn Profile
+                            </a>
+                                {% if current_user.is_authenticated and current_user.email.endswith('@national4hgeospatialteam.us') %}
+                                <div class="team-card-actions">
+                                    <form method="POST" action="{{ url_for('delete_team_member', member_id=member.id) }}" style="display: inline;" onsubmit="return confirm('Are you sure you want to delete this team member?')">
+                                        <button type="submit" class="action-btn delete-btn">
+                                            <i class="fas fa-trash"></i> Delete
+                                        </button>
+                                    </form>
+                                </div>
+                                {% endif %}
+                            </div>
+                            {% endfor %}
+                        {% else %}
+                            <!-- Fallback to original team members if no database entries -->
+                            <div class="team-card">
+                                <h3>Thomas Tate</h3>
+                                <div class="title">Founder</div>
+                                <div class="description">
+                                    Retired National Program Leader at USDA with extensive experience in developing adult and youth learning programs and systems.
+                                </div>
+                                <a href="https://www.linkedin.com/in/tom-tate-1292196/" class="linkedin-link">
+                                    <i class="fab fa-linkedin"></i>
+                                    LinkedIn Profile
+                                </a>
+                            </div>
+
+                            <div class="team-card">
+                                <h3>Esther Worker</h3>
+                                <div class="title">Former Education Account Manager at Esri</div>
+                                <div class="description">
+                                    Retired from Esri in 2020 after nearly 29 years, where she served as an Education Account Manager. She also served on the Advisory Council for Broomfield 4-H from 2005 to 2015.
+                                </div>
+                                <a href="https://www.linkedin.com/search/results/people/?firstName=Esther&lastName=Worker&origin=SEO_PSERP" class="linkedin-link">
+                                    <i class="fab fa-linkedin"></i>
+                                    LinkedIn Profile
+                                </a>
+                            </div>
+
+                            <div class="team-card">
+                                <h3>Dr. Thomas Ray</h3>
+                                <div class="title">Associate Executive Director, Poe Center for Health Education</div>
+                                <div class="description">
+                                    Dr. Ray has championed youth-led STEM programs across North Carolina through his leadership in 4-H and now supports statewide education and outreach at the Poe Center. He remains a driving force in GIS competition and STEM access for students grades 4–12.
+                                </div>
+                                <a href="https://www.linkedin.com/in/thomasboydray/" class="linkedin-link">
+                                    <i class="fab fa-linkedin"></i>
+                                    LinkedIn Profile
+                                </a>
+                            </div>
+
+                            <div class="team-card">
+                                <h3>Barbaree Duke</h3>
+                                <div class="title">GIS Curriculum & Training Consultant</div>
+                                <div class="description">
+                                    Veteran classroom teacher and consultant in GIS in Education. Former Editor-in-Chief at Directions Magazine and curriculum lead at GISetc.
+                                </div>
+                                <a href="https://www.linkedin.com/in/barbareeduke/" class="linkedin-link">
+                                    <i class="fab fa-linkedin"></i>
+                                    LinkedIn Profile
+                                </a>
+                            </div>
+
+                            <div class="team-card">
+                                <h3>Dr. Gerardo López</h3>
+                                <div class="title">STEM Extension Specialist, University of Arizona</div>
+                                <div class="description">
+                                    A national leader in agricultural and STEM education, Dr. López has expanded 4-H STEM programs across Arizona — establishing the state as a top contender in national youth STEM efforts. His work connects underserved youth to science, agriculture, and water quality solutions.
+                                </div>
+                                <a href="https://www.linkedin.com/in/gerardo-lopez-97672392/" class="linkedin-link">
+                                    <i class="fab fa-linkedin"></i>
+                                    LinkedIn Profile
+                                </a>
+                            </div>
+
+                            <div class="team-card">
+                                <h3>Austin Ramsey</h3>
+                                <div class="title">Founder & Chief Box Crusher, Pointech</div>
+                                <div class="description">
+                                    A former Roan Scholar and East Tennessee State University graduate, Austin leads Pointech, LLC — a startup focused on applied GIS and youth tech engagement. He previously led National 4-H GIS workshops and national mapping projects.
+                                </div>
+                                <a href="https://www.linkedin.com/in/austin-ramsey/" class="linkedin-link">
+                                    <i class="fab fa-linkedin"></i>
+                                    LinkedIn Profile
+                                </a>
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="side-entry-section">
+            <h2 class="section-title">Alumni Highlights</h2>
+            <div class="side-entry-content reverse">
+                <div class="side-entry-text right">
+                    <p class="side-entry-description">
+                        Our alumni continue to make significant impacts in the GIS community and beyond. These former team members demonstrate how the skills and experiences gained through our program translate into successful careers and meaningful contributions to society.
+                    </p>
+                    {% if current_user.is_authenticated and current_user.email.endswith('@national4hgeospatialteam.us') %}
+                    <div class="team-actions">
+                        <a href="{{ url_for('add_team_member') }}" class="action-btn add-btn">
+                            <i class="fas fa-plus"></i> Add Alumni
+                        </a>
+                    </div>
+                    {% endif %}
+                    <div class="team-grid">
+                        {% if team_members %}
+                            {% for member in team_members if member.member_type == 'alumni' %}
+                            <div class="team-card alumni-card">
+                                {% if member.year %}
+                                <div class="year">{{ member.year }}</div>
+                                {% endif %}
+                                <h3>{{ member.name }}</h3>
+                                <div class="title">{{ member.title }}</div>
+                                                            <div class="description">
+                                {{ member.description }}
+                            </div>
+                            <a href="{{ member.linkedin_url or '#' }}" class="linkedin-link" target="_blank">
+                                <i class="fab fa-linkedin"></i>
+                                LinkedIn Profile
+                            </a>
+                                {% if current_user.is_authenticated and current_user.email.endswith('@national4hgeospatialteam.us') %}
+                                <div class="team-card-actions">
+                                    <form method="POST" action="{{ url_for('delete_team_member', member_id=member.id) }}" style="display: inline;" onsubmit="return confirm('Are you sure you want to delete this team member?')">
+                                        <button type="submit" class="action-btn delete-btn">
+                                            <i class="fas fa-trash"></i> Delete
+                                        </button>
+                                    </form>
+                                </div>
+                                {% endif %}
+                            </div>
+                            {% endfor %}
+                        {% else %}
+                            <!-- Fallback to original alumni if no database entries -->
+                            <div class="team-card alumni-card">
+                                <div class="year">Field Mapping Lead, 2009</div>
+                                <h3>Geovanny Solera</h3>
+                                <div class="title">Now at Esri</div>
+                                <div class="description">
+                                    Now at Esri, Geovanny supports digital transformation for utilities and telecoms. He started in youth-led mapping initiatives and has since built a career helping cities and utility clients build high-performing GIS platforms with impact across sectors.
+                                </div>
+                                <a href="https://www.linkedin.com/in/geovanny-solera/" class="linkedin-link">
+                                    <i class="fab fa-linkedin"></i>
+                                    LinkedIn Profile
+                                </a>
+                            </div>
+
+                            <div class="team-card alumni-card">
+                                <div class="year">GIS 3D Imagery Operator, 2024</div>
+                                <h3>Arjun Kuncha</h3>
+                                <div class="title">Mechanical Engineering Student and Franklin Scholar at NC State</div>
+                                <div class="description">
+                                    Arjun, a Mechanical Engineering student and Franklin Scholar at NC State, created advanced ArcGIS Web Apps that visualized local health, equity, and sustainability data. He bridged geospatial thinking with engineering to elevate youth storytelling through tech and civic design.
+                                </div>
+                                <a href="https://www.linkedin.com/in/arjun-kuncha-969085276/" class="linkedin-link">
+                                    <i class="fab fa-linkedin"></i>
+                                    LinkedIn Profile
+                                </a>
+                            </div>
+
+                            <div class="team-card alumni-card">
+                                <div class="year">Youth Outreach & StoryMap Design, 2017</div>
+                                <h3>Austin Ramsey</h3>
+                                <div class="title">Founder & Chief Box Crusher, Pointech</div>
+                                <div class="description">
+                                    Austin spearheaded youth communications and digital storytelling during his time on the team. His award-winning StoryMaps helped set a national tone for youth GIS. Today, he leads Pointech, LLC and serves on our Board of Directors.
+                                </div>
+                                <a href="https://www.linkedin.com/in/austin-ramsey/" class="linkedin-link">
+                                    <i class="fab fa-linkedin"></i>
+                                    LinkedIn Profile
+                                </a>
+                                <div class="board-note">Now on the Board →</div>
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <footer class="footer" id="contact">
+        <div class="container">
+            <div class="footer-logo">4-H GIS TEAM</div>
+            <p class="footer-description">
+                We're passionate about using geospatial technology to make a difference. Get in touch to learn more about our work or discuss potential collaborations.
+            </p>
+            <div class="footer-social">
+                <a href="#"><i class="fab fa-twitter"></i></a>
+                <a href="#"><i class="fab fa-linkedin"></i></a>
+                <a href="#"><i class="fab fa-github"></i></a>
+                <a href="#"><i class="fab fa-instagram"></i></a>
+            </div>
+            <p class="footer-copyright">© 2023 4-H National GIS Team. All rights reserved.</p>
+            <p class="footer-copyright">Made by: <a href="https://www.linkedin.com/in/vaishnav-anand/" target="_blank" style="color: var(--highlight); text-decoration: none;">Vaishnav Anand</a></p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Hide default cursor
+            document.body.style.cursor = 'none';
+            // Add globe cursor element
+            const globe = document.createElement('img');
+            globe.src = 'static/images/Clover.png'; // Cartoon globe SVG with transparent background
+            globe.className = 'globe-cursor';
+            document.body.appendChild(globe);
+            // Move globe with mouse
+            document.addEventListener('mousemove', function(e) {
+                globe.style.left = e.clientX + 'px';
+                globe.style.top = e.clientY + 'px';
+            });
+
+            // Mode toggle functionality
+            function setMode(mode) {
+                if (mode === 'light') {
+                    document.documentElement.setAttribute('data-theme', 'light');
+                    localStorage.setItem('theme', 'light');
+                    document.getElementById('mode-toggle').textContent = '☀️';
+                } else {
+                    document.documentElement.removeAttribute('data-theme');
+                    localStorage.setItem('theme', 'dark');
+                    document.getElementById('mode-toggle').textContent = '🌙';
+                }
+            }
+            
+            const modeToggle = document.getElementById('mode-toggle');
+            modeToggle.addEventListener('click', function() {
+                const currentTheme = document.documentElement.getAttribute('data-theme');
+                setMode(currentTheme === 'light' ? 'dark' : 'light');
+            });
+            setMode(localStorage.getItem('theme') === 'light' ? 'light' : 'dark');
+        });
+    </script>
+</body>
+</html> 

@@ -1,0 +1,574 @@
+{% extends "base.html" %}
+
+{% block title %}Home - Vaishnav Anand{% endblock %}
+
+{% block body_class %}home-page{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="home-hero" id="heroSection">
+    <div class="hero-background">
+        <div class="gradient-sphere"></div>
+        <div class="gradient-sphere secondary"></div>
+        <div class="grid-overlay"></div>
+        <div class="mouse-gradient" id="mouseGradient"></div>
+    </div>
+    <div class="container">
+        <div class="hero-content" data-aos="fade-up">
+            <div class="hero-text-wrapper">
+                <span class="overline">AI Researcher & Developer</span>
+                <h1 class="hero-title">
+                    <span class="gradient-text" id="gradientText">Vaishnav Anand</span>
+                    <span class="hero-subtitle">Innovating at the intersection of AI & Development</span>
+                </h1>
+                <p class="hero-description">
+                    Pushing the boundaries of artificial intelligence and software development to create impactful solutions for real-world challenges.
+                </p>
+                <div class="hero-cta">
+                    <a href="/projects" class="btn btn-primary">View Projects</a>
+                    <a href="/contact" class="btn btn-outline">Get in Touch</a>
+                </div>
+            </div>
+            <div class="tech-badges" data-aos="fade-up" data-aos-delay="200">
+                <div class="badge">
+                    <i class="fas fa-brain"></i>
+                    <span>Machine Learning</span>
+                </div>
+                <div class="badge">
+                    <i class="fas fa-code"></i>
+                    <span>Full Stack</span>
+                </div>
+                <div class="badge">
+                    <i class="fas fa-robot"></i>
+                    <span>Robotics</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="scroll-indicator">
+        <span>Scroll to explore</span>
+        <div class="scroll-line"></div>
+    </div>
+</section>
+
+<!-- Featured Work Section -->
+<section class="section featured-work">
+    <div class="container">
+        <div class="section-header" data-aos="fade-up">
+            <span class="overline">Featured Work</span>
+            <h2>Recent Achievements</h2>
+        </div>
+        <div class="featured-grid" data-aos="fade-up">
+            <div class="featured-card main">
+                <div class="card-content">
+                    <span class="card-tag">Research</span>
+                    <h3>Geospatial Deepfake Detection</h3>
+                    <p>93% accuracy in detecting manipulated satellite imagery using advanced GANs</p>
+                    <div class="card-footer">
+                        <a href="/projects" class="learn-more">
+                            Learn more <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="card-visual">
+                    <div class="code-preview">
+                        <div class="code-header">
+                            <span class="dot red"></span>
+                            <span class="dot yellow"></span>
+                            <span class="dot green"></span>
+                        </div>
+                        <pre><code>def detect_deepfake(image):
+    features = extract_features(image)
+    confidence = model.predict(features)
+    return confidence > threshold</code></pre>
+                    </div>
+                </div>
+            </div>
+            <div class="featured-card">
+                <div class="card-content">
+                    <span class="card-tag">Achievement</span>
+                    <h3>Stanford Precollegiate</h3>
+                    <p>Selected among top 2.5% for Discrete Mathematics program</p>
+                </div>
+            </div>
+            <div class="featured-card">
+                <div class="card-content">
+                    <span class="card-tag">Leadership</span>
+                    <h3>FTC Robotics Lead</h3>
+                    <p>Led team to Connect Award victory and Dean's List recognition</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Modern Tiles Overview -->
+<section class="section modern-tiles-section">
+    <div class="container">
+        <div class="section-header" data-aos="fade-up">
+            <span class="overline">Expertise</span>
+            <h2>Technical Experience</h2>
+        </div>
+        <div class="modern-tile-grid">
+            <div class="modern-tile">
+                <div class="modern-tile-header">
+                    <div class="modern-tile-icon">
+                        <i class="fas fa-brain"></i>
+                    </div>
+                    <h3 class="modern-tile-title">AI & Machine Learning</h3>
+                </div>
+                <div class="modern-tile-content">
+                    Advanced expertise in TensorFlow, PyTorch, and Computer Vision. Specialized in GANs, CNNs, and Deep Learning applications.
+                </div>
+            </div>
+            
+            <div class="modern-tile">
+                <div class="modern-tile-header">
+                    <div class="modern-tile-icon">
+                        <i class="fas fa-code"></i>
+                    </div>
+                    <h3 class="modern-tile-title">Software Development</h3>
+                </div>
+                <div class="modern-tile-content">
+                    Full-stack development with Python, Java, and C++. Experience with RESTful APIs and microservices architecture.
+                </div>
+            </div>
+            
+            <div class="modern-tile">
+                <div class="modern-tile-header">
+                    <div class="modern-tile-icon">
+                        <i class="fas fa-tools"></i>
+                    </div>
+                    <h3 class="modern-tile-title">Tools & Technologies</h3>
+                </div>
+                <div class="modern-tile-content">
+                    Proficient with Git, Docker, AWS, and Linux. Experience with CI/CD pipelines and Kubernetes.
+                </div>
+            </div>
+            
+            <div class="modern-tile">
+                <div class="modern-tile-header">
+                    <div class="modern-tile-icon">
+                        <i class="fas fa-robot"></i>
+                    </div>
+                    <h3 class="modern-tile-title">Robotics & Automation</h3>
+                </div>
+                <div class="modern-tile-content">
+                    FTC Robotics lead with autonomous navigation systems. Experience with OpenCV and Android SDK.
+                </div>
+            </div>
+            
+            <div class="modern-tile">
+                <div class="modern-tile-header">
+                    <div class="modern-tile-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h3 class="modern-tile-title">Data Analysis</h3>
+                </div>
+                <div class="modern-tile-content">
+                    Statistical analysis and data processing. Published research in market analysis and predictive modeling.
+                </div>
+            </div>
+            
+            <div class="modern-tile">
+                <div class="modern-tile-header">
+                    <div class="modern-tile-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <h3 class="modern-tile-title">Leadership & Mentorship</h3>
+                </div>
+                <div class="modern-tile-content">
+                    Led teams to victory in competitions. Mentored 100+ students in STEM education and research.
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Skills Overview -->
+<section class="section skills-overview">
+    <div class="container">
+        <div class="section-header" data-aos="fade-up">
+            <span class="overline">Detailed Skills</span>
+            <h2>Technical Proficiency</h2>
+        </div>
+        <div class="skills-masonry" data-aos="fade-up">
+            <!-- AI & Machine Learning -->
+            <div class="skill-group">
+                <div class="skill-header">
+                    <i class="fas fa-brain"></i>
+                    <h3>AI & Machine Learning</h3>
+                </div>
+                <div class="skill-content">
+                    <div class="skill-item advanced">
+                        <span class="skill-name">TensorFlow</span>
+                        <div class="skill-level">
+                            <div class="level-indicator" style="width: 95%"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item advanced">
+                        <span class="skill-name">PyTorch</span>
+                        <div class="skill-level">
+                            <div class="level-indicator" style="width: 90%"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item advanced">
+                        <span class="skill-name">Computer Vision</span>
+                        <div class="skill-level">
+                            <div class="level-indicator" style="width: 92%"></div>
+                        </div>
+                    </div>
+                    <div class="skill-tags">
+                        <span class="tag">GANs</span>
+                        <span class="tag">CNNs</span>
+                        <span class="tag">NLP</span>
+                        <span class="tag">Deep Learning</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Software Development -->
+            <div class="skill-group">
+                <div class="skill-header">
+                    <i class="fas fa-code"></i>
+                    <h3>Software Development</h3>
+                </div>
+                <div class="skill-content">
+                    <div class="skill-item advanced">
+                        <span class="skill-name">Python</span>
+                        <div class="skill-level">
+                            <div class="level-indicator" style="width: 98%"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item intermediate">
+                        <span class="skill-name">Java</span>
+                        <div class="skill-level">
+                            <div class="level-indicator" style="width: 85%"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item intermediate">
+                        <span class="skill-name">C++</span>
+                        <div class="skill-level">
+                            <div class="level-indicator" style="width: 80%"></div>
+                        </div>
+                    </div>
+                    <div class="skill-tags">
+                        <span class="tag">Full Stack</span>
+                        <span class="tag">RESTful APIs</span>
+                        <span class="tag">Microservices</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tools & Technologies -->
+            <div class="skill-group">
+                <div class="skill-header">
+                    <i class="fas fa-tools"></i>
+                    <h3>Tools & Technologies</h3>
+                </div>
+                <div class="skill-content">
+                    <div class="skill-item advanced">
+                        <span class="skill-name">Git</span>
+                        <div class="skill-level">
+                            <div class="level-indicator" style="width: 90%"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item advanced">
+                        <span class="skill-name">Docker</span>
+                        <div class="skill-level">
+                            <div class="level-indicator" style="width: 88%"></div>
+                        </div>
+                    </div>
+                    <div class="skill-tags">
+                        <span class="tag">AWS</span>
+                        <span class="tag">Linux</span>
+                        <span class="tag">CI/CD</span>
+                        <span class="tag">Kubernetes</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Impact Stats -->
+<section class="section impact-stats">
+    <div class="container">
+        <div class="section-header" data-aos="fade-up">
+            <span class="overline">Impact</span>
+            <h2>Achievements & Metrics</h2>
+        </div>
+        
+        <!-- Achievement Tiles -->
+        <div class="modern-tile-grid">
+            <div class="modern-tile">
+                <div class="modern-tile-header">
+                    <div class="modern-tile-icon">
+                        <i class="fas fa-trophy"></i>
+                    </div>
+                    <h3 class="modern-tile-title">93% Model Accuracy</h3>
+                </div>
+                <div class="modern-tile-content">
+                    Achieved in Geospatial Deepfake Detection using advanced GANs and computer vision techniques.
+                </div>
+            </div>
+            
+            <div class="modern-tile">
+                <div class="modern-tile-header">
+                    <div class="modern-tile-icon">
+                        <i class="fas fa-university"></i>
+                    </div>
+                    <h3 class="modern-tile-title">Stanford Precollegiate</h3>
+                </div>
+                <div class="modern-tile-content">
+                    Selected among top 2.5% for Discrete Mathematics program, demonstrating exceptional mathematical aptitude.
+                </div>
+            </div>
+            
+            <div class="modern-tile">
+                <div class="modern-tile-header">
+                    <div class="modern-tile-icon">
+                        <i class="fas fa-medal"></i>
+                    </div>
+                    <h3 class="modern-tile-title">FTC Robotics Victory</h3>
+                </div>
+                <div class="modern-tile-content">
+                    Led team to Connect Award victory and Dean's List recognition in robotics competition.
+                </div>
+            </div>
+            
+            <div class="modern-tile">
+                <div class="modern-tile-header">
+                    <div class="modern-tile-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <h3 class="modern-tile-title">100+ Students Mentored</h3>
+                </div>
+                <div class="modern-tile-content">
+                    Successfully mentored students in STEM education, fostering the next generation of innovators.
+                </div>
+            </div>
+            
+            <div class="modern-tile">
+                <div class="modern-tile-header">
+                    <div class="modern-tile-icon">
+                        <i class="fas fa-microscope"></i>
+                    </div>
+                    <h3 class="modern-tile-title">5+ Research Projects</h3>
+                </div>
+                <div class="modern-tile-content">
+                    Successfully completed research projects including published papers in student research journals.
+                </div>
+            </div>
+            
+            <div class="modern-tile">
+                <div class="modern-tile-header">
+                    <div class="modern-tile-icon">
+                        <i class="fas fa-database"></i>
+                    </div>
+                    <h3 class="modern-tile-title">700K+ Data Points</h3>
+                </div>
+                <div class="modern-tile-content">
+                    Processed and analyzed massive datasets for machine learning and statistical analysis projects.
+                </div>
+            </div>
+        </div>
+        
+        <div class="stats-container" data-aos="fade-up">
+            <div class="stats-card">
+                <div class="stats-header">
+                    <i class="fas fa-chart-line"></i>
+                    <h3>Research Impact</h3>
+                </div>
+                <div class="stats-grid">
+                    <div class="stat-item primary">
+                        <div class="stat-circle">
+                            <svg viewBox="0 0 36 36" class="circular-chart">
+                                <path d="M18 2.0845
+                                    a 15.9155 15.9155 0 0 1 0 31.831
+                                    a 15.9155 15.9155 0 0 1 0 -31.831"
+                                    fill="none"
+                                    stroke-width="2"
+                                    stroke-dasharray="93, 100"
+                                />
+                            </svg>
+                            <span class="stat-number">93%</span>
+                        </div>
+                        <span class="stat-label">Model Accuracy</span>
+                        <span class="stat-context">in Deepfake Detection</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">700K+</span>
+                        <span class="stat-label">Data Points</span>
+                        <span class="stat-context">Processed & Analyzed</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="stats-card">
+                <div class="stats-header">
+                    <i class="fas fa-users"></i>
+                    <h3>Community Impact</h3>
+                </div>
+                <div class="stats-grid">
+                    <div class="stat-item">
+                        <span class="stat-number">100+</span>
+                        <span class="stat-label">Students</span>
+                        <span class="stat-context">Mentored in STEM</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">5+</span>
+                        <span class="stat-label">Research Projects</span>
+                        <span class="stat-context">Successfully Completed</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="stats-card">
+                <div class="stats-header">
+                    <i class="fas fa-award"></i>
+                    <h3>Recognition</h3>
+                </div>
+                <div class="stats-grid">
+                    <div class="stat-item">
+                        <span class="stat-number">2.5%</span>
+                        <span class="stat-label">Top Percentile</span>
+                        <span class="stat-context">Stanford Selection</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">1st</span>
+                        <span class="stat-label">Place</span>
+                        <span class="stat-context">FTC Robotics</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Latest Updates -->
+<section class="section latest-updates">
+    <div class="container">
+        <div class="section-header" data-aos="fade-up">
+            <span class="overline">News</span>
+            <h2>Latest Updates</h2>
+        </div>
+        
+        <!-- Update Tiles -->
+        <div class="modern-tile-grid">
+            <div class="modern-tile">
+                <div class="modern-tile-header">
+                    <div class="modern-tile-icon">
+                        <i class="fas fa-code"></i>
+                    </div>
+                    <h3 class="modern-tile-title">USACO Silver Division</h3>
+                </div>
+                <div class="modern-tile-content">
+                    <strong>March 2024</strong><br>
+                    Advanced to Silver Division in USA Computing Olympiad, demonstrating advanced algorithmic problem-solving skills.
+                </div>
+            </div>
+            
+            <div class="modern-tile">
+                <div class="modern-tile-header">
+                    <div class="modern-tile-icon">
+                        <i class="fas fa-file-alt"></i>
+                    </div>
+                    <h3 class="modern-tile-title">Research Paper Published</h3>
+                </div>
+                <div class="modern-tile-content">
+                    <strong>February 2024</strong><br>
+                    Statistical analysis paper accepted in Journal of Student Research, contributing to academic literature.
+                </div>
+            </div>
+            
+            <div class="modern-tile">
+                <div class="modern-tile-header">
+                    <div class="modern-tile-icon">
+                        <i class="fas fa-robot"></i>
+                    </div>
+                    <h3 class="modern-tile-title">FTC Robotics Victory</h3>
+                </div>
+                <div class="modern-tile-content">
+                    <strong>January 2024</strong><br>
+                    Team awarded the Connect Award for exceptional community outreach and technical excellence.
+                </div>
+            </div>
+        </div>
+        
+        <div class="updates-grid" data-aos="fade-up">
+            <div class="update-card">
+                <div class="update-date">March 2024</div>
+                <h3>USACO Silver Division Achievement</h3>
+                <p>Advanced to Silver Division in USA Computing Olympiad</p>
+            </div>
+            <div class="update-card">
+                <div class="update-date">February 2024</div>
+                <h3>Research Paper Acceptance</h3>
+                <p>Statistical analysis paper accepted in Journal of Student Research</p>
+            </div>
+            <div class="update-card">
+                <div class="update-date">January 2024</div>
+                <h3>FTC Robotics Victory</h3>
+                <p>Team awarded the Connect Award for community outreach</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Call to Action -->
+<section class="section cta-section">
+    <div class="container">
+        <div class="cta-content" data-aos="fade-up">
+            <h2>Ready to innovate together?</h2>
+            <p>Let's discuss how we can collaborate on your next project.</p>
+            <div class="cta-buttons">
+                <a href="/contact" class="btn btn-primary">Get in Touch</a>
+                <a href="/projects" class="btn btn-outline">View Projects</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const heroSection = document.getElementById('heroSection');
+    const mouseGradient = document.getElementById('mouseGradient');
+    const gradientText = document.getElementById('gradientText');
+
+    heroSection.addEventListener('mousemove', (e) => {
+        const rect = heroSection.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        
+        // Update mouse gradient position
+        mouseGradient.style.background = `radial-gradient(circle at ${x}px ${y}px, 
+            rgba(139, 92, 246, 0.15) 0%,
+            rgba(96, 165, 250, 0.15) 30%,
+            transparent 70%)`;
+        
+        // Update text gradient
+        const gradientAngle = Math.atan2(y, x) * (180 / Math.PI);
+        gradientText.style.backgroundImage = `linear-gradient(${gradientAngle}deg, 
+            #22d3ee 0%,
+            #8b5cf6 50%,
+            #ec4899 100%
+        )`;
+    });
+
+    // Initialize circular progress bars
+    const circles = document.querySelectorAll('.circular-chart path');
+    circles.forEach(circle => {
+        const length = circle.getTotalLength();
+        circle.style.strokeDasharray = `${length} ${length}`;
+        circle.style.strokeDashoffset = length;
+        
+        // Trigger animation
+        setTimeout(() => {
+            const value = circle.getAttribute('stroke-dasharray').split(',')[0];
+            circle.style.strokeDashoffset = length - (length * value) / 100;
+        }, 500);
+    });
+});
+</script>
+{% endblock %} 

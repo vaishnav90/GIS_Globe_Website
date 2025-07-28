@@ -1,0 +1,1017 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>National 4-H GIS Team Pictures - Vaishnav Anand</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap');
+        :root {
+            --bg: #000000;
+            --text: #fff;
+            --text-light: #bbb;
+            --border: #222;
+            --highlight: #177a3b;
+            --transition: 0.5s cubic-bezier(.4,1,.7,1);
+        }
+
+        /* Light Mode Variables */
+        html[data-theme="light"] {
+            --bg: #ffffff;
+            --text: #1a1a1a;
+            --text-light: #6b7280;
+            --border: #e5e7eb;
+            --highlight: #059669;
+        }
+
+        @media (prefers-color-scheme: light) {
+            html:not([data-theme]) {
+                --bg: #ffffff;
+                --text: #1a1a1a;
+                --text-light: #6b7280;
+                --border: #e5e7eb;
+                --highlight: #059669;
+            }
+        }
+        html, body {
+            background: var(--bg);
+            color: var(--text);
+            font-family: 'Inter', sans-serif;
+            min-height: 100vh;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 80px 24px 60px 24px;
+        }
+        .header {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            margin-bottom: 80px;
+        }
+        .logo {
+            font-size: 2.2rem;
+            font-weight: 900;
+            letter-spacing: -0.04em;
+            line-height: 1;
+            background: linear-gradient(135deg, var(--highlight), #3fc16c);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .back-link {
+            color: var(--highlight);
+            text-decoration: none;
+            font-size: 1rem;
+            font-weight: 700;
+            transition: color var(--transition), border-bottom var(--transition);
+            border-bottom: 2px solid transparent;
+            padding-bottom: 2px;
+        }
+        .back-link:hover {
+            color: #fff;
+            border-bottom: 2px solid var(--highlight);
+        }
+        .hero-title {
+            font-size: clamp(2.5rem, 7vw, 5rem);
+            font-weight: 900;
+            margin-bottom: 24px;
+            letter-spacing: -0.04em;
+            line-height: 1.05;
+            opacity: 0;
+            transform: translateY(40px);
+            animation: fadeInUp 1s 0.1s forwards;
+            background: linear-gradient(135deg, var(--highlight) 0%, #3fc16c 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .hero-description {
+            color: var(--text-light);
+            font-size: 1.3rem;
+            max-width: 600px;
+            margin-bottom: 80px;
+            opacity: 0;
+            transform: translateY(40px);
+            animation: fadeInUp 1s 0.3s forwards;
+        }
+        .music-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 56px 48px;
+            margin: 0 auto;
+        }
+        .album-item {
+            background: transparent;
+            border: 1.5px solid var(--border);
+            border-radius: 20px;
+            padding: 36px 24px 32px 24px;
+            box-shadow: 0 2px 16px 0 rgba(162,89,247,0.04);
+            transition: border-color var(--transition), box-shadow var(--transition), transform var(--transition);
+            opacity: 0;
+            transform: translateY(40px);
+            perspective: 1200px;
+        }
+        .album-item.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .album-item:hover {
+            box-shadow: 0 6px 32px 0 rgba(162,89,247,0.10);
+        }
+        .album-cover {
+            width: 100%;
+            aspect-ratio: 1;
+            margin-bottom: 28px;
+            border-radius: 14px;
+            overflow: hidden;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.18);
+            transition: box-shadow var(--transition);
+            /* Subtle tilt: odd right, even left */
+            transform: perspective(900px) rotateY(8deg) scale(1.04);
+            transition: transform var(--transition), box-shadow var(--transition);
+        }
+        .album-item:nth-child(even) .album-cover {
+            transform: perspective(900px) rotateY(-8deg) scale(1.04);
+        }
+        .album-item:hover .album-cover {
+            transform: perspective(900px) rotateY(0deg) scale(1.08);
+           
+        }
+        .album-cover img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+        
+        /* Image Actions */
+        .image-actions {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            display: flex;
+            gap: 8px;
+            opacity: 0;
+            transition: opacity var(--transition);
+        }
+        
+        .album-item:hover .image-actions {
+            opacity: 1;
+        }
+        
+        .delete-btn {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            transition: all var(--transition);
+        }
+        
+        .delete-btn {
+            background: #000;
+            border: 2px solid #dc3545;
+            color: #dc3545;
+        }
+        
+        .delete-btn:hover {
+            background: #dc3545;
+            color: #000;
+            transform: scale(1.1);
+        }
+        
+        .album-cover {
+            position: relative;
+        }
+        .album-info h3 {
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 6px;
+            color: #fff;
+        }
+        .album-info p {
+            font-size: 1rem;
+            color: #fff;
+            font-weight: 400;
+        }
+        @media (max-width: 900px) {
+            .music-grid { grid-template-columns: 1fr; gap: 36px; }
+        }
+        @media (max-width: 600px) {
+            .container { padding: 24px 4px; }
+            .music-grid { gap: 18px; }
+        }
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        /* Floating Add Button */
+        .floating-add-btn {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: #000;
+            border: 2px solid var(--highlight);
+            color: var(--highlight);
+            font-size: 24px;
+            cursor: pointer;
+            box-shadow: 0 4px 20px rgba(23,122,59,0.3);
+            transition: all var(--transition);
+            z-index: 1000;
+        }
+        
+        .floating-add-btn:hover {
+            transform: scale(1.1);
+            background: var(--highlight);
+            color: #000;
+            box-shadow: 0 6px 30px rgba(23,122,59,0.4);
+        }
+        
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.8);
+            backdrop-filter: blur(5px);
+        }
+        
+        .modal-content {
+            background: #000;
+            margin: 5% auto;
+            padding: 40px;
+            border: 2px solid var(--highlight);
+            border-radius: 20px;
+            width: 90%;
+            max-width: 500px;
+            position: relative;
+            animation: modalSlideIn 0.3s ease-out;
+        }
+        
+        @keyframes modalSlideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .close {
+            position: absolute;
+            right: 20px;
+            top: 20px;
+            color: var(--text-light);
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: color var(--transition);
+        }
+        
+        .close:hover {
+            color: var(--text);
+        }
+        
+        .modal h2 {
+            margin-bottom: 30px;
+            color: var(--text);
+            font-size: 1.8rem;
+            font-weight: 700;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: var(--text);
+            font-weight: 600;
+        }
+        
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid var(--highlight);
+            border-radius: 8px;
+            background: #000;
+            color: var(--text);
+            font-size: 14px;
+            transition: border-color var(--transition);
+        }
+        
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #fff;
+            background: #111;
+        }
+        
+        .form-group textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+        
+        .submit-btn {
+            background: #000;
+            color: var(--highlight);
+            border: 2px solid var(--highlight);
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all var(--transition);
+            width: 100%;
+        }
+        
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            background: var(--highlight);
+            color: #000;
+            box-shadow: 0 4px 20px rgba(23,122,59,0.3);
+        }
+        
+        /* Sleek Modal Styles */
+        .modal-content {
+            background: #000;
+            margin: 5% auto;
+            padding: 0;
+            border: 1px solid #333;
+            border-radius: 12px;
+            width: 90%;
+            max-width: 500px;
+            position: relative;
+            animation: modalSlideIn 0.3s ease-out;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.8);
+        }
+        
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 24px 32px 16px 32px;
+            border-bottom: 1px solid #333;
+        }
+        
+        .modal-header h2 {
+            margin: 0;
+            color: #fff;
+            font-size: 1.5rem;
+            font-weight: 600;
+        }
+        
+        .modal-body {
+            padding: 24px 32px 32px 32px;
+        }
+        
+        /* Delete Modal Specific Styles */
+        .delete-header {
+            background: linear-gradient(135deg, #1a1a1a 0%, #000 100%);
+            border-bottom: 2px solid #333;
+        }
+        
+        .warning-icon {
+            font-size: 2rem;
+            margin-right: 12px;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+        
+        .warning-content {
+            text-align: center;
+            padding: 20px 0;
+        }
+        
+        .warning-content h3 {
+            color: #fff;
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin: 0 0 16px 0;
+            line-height: 1.4;
+        }
+        
+        .warning-content p {
+            color: #ccc;
+            font-size: 15px;
+            line-height: 1.6;
+            margin: 0;
+            max-width: 400px;
+            margin: 0 auto;
+        }
+        
+        .modal-actions {
+            display: flex;
+            gap: 12px;
+            padding: 16px 32px 24px 32px;
+            justify-content: flex-end;
+        }
+        
+        .cancel-btn, .delete-btn {
+            padding: 14px 28px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 2px solid;
+            min-width: 120px;
+        }
+        
+        .cancel-btn {
+            background: #000;
+            border-color: #444;
+            color: #ccc;
+        }
+        
+        .cancel-btn:hover {
+            background: #111;
+            border-color: #666;
+            color: #fff;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+        }
+        
+        .delete-btn {
+            background: #000;
+            border-color: #dc3545;
+            color: #dc3545;
+        }
+        
+        .delete-btn:hover {
+            background: #dc3545;
+            color: #000;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(220,53,69,0.3);
+        }
+        
+        /* Form styling updates */
+        .form-group {
+            margin-bottom: 24px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #fff;
+            font-weight: 500;
+            font-size: 14px;
+        }
+        
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 14px 16px;
+            border: 1px solid #333;
+            border-radius: 8px;
+            background: #111;
+            color: #fff;
+            font-size: 14px;
+            transition: all 0.2s ease;
+            box-sizing: border-box;
+        }
+        
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--highlight);
+            background: #000;
+            box-shadow: 0 0 0 2px rgba(23,122,59,0.1);
+        }
+        
+        .form-group small {
+            display: block;
+            margin-top: 6px;
+            color: #888;
+            font-size: 12px;
+        }
+        
+        /* Custom file input styling */
+        .form-group input[type="file"] {
+            position: relative;
+            cursor: pointer;
+        }
+        
+        .form-group input[type="file"]::-webkit-file-upload-button {
+            background: #000;
+            color: #fff;
+            border: 1px solid #333;
+            border-radius: 6px;
+            padding: 8px 16px;
+            margin-right: 12px;
+            cursor: pointer;
+            font-size: 13px;
+            font-weight: 500;
+            transition: all 0.2s ease;
+        }
+        
+        .form-group input[type="file"]::-webkit-file-upload-button:hover {
+            background: #111;
+            border-color: var(--highlight);
+            color: var(--highlight);
+        }
+        
+        .form-group input[type="file"]::before {
+            content: '📁 Choose File';
+            display: inline-block;
+            background: #000;
+            color: #fff;
+            border: 1px solid #333;
+            border-radius: 6px;
+            padding: 8px 16px;
+            margin-right: 12px;
+            cursor: pointer;
+            font-size: 13px;
+            font-weight: 500;
+            transition: all 0.2s ease;
+        }
+        
+        .form-group input[type="file"]:hover::before {
+            background: #111;
+            border-color: var(--highlight);
+            color: var(--highlight);
+        }
+        
+        .submit-btn {
+            background: #000;
+            color: #fff;
+            border: 1px solid #333;
+            padding: 14px 24px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            width: 100%;
+        }
+        
+        .submit-btn:hover {
+            background: #111;
+            border-color: var(--highlight);
+            color: var(--highlight);
+            transform: translateY(-1px);
+        }
+
+        /* Light Mode Styles */
+        html[data-theme="light"] .album-item {
+            background: rgba(255, 255, 255, 0.8);
+            border-color: var(--border);
+            box-shadow: 0 2px 16px 0 rgba(0, 0, 0, 0.1);
+        }
+
+        html[data-theme="light"] .album-item:hover {
+            box-shadow: 0 6px 32px 0 rgba(0, 0, 0, 0.15);
+        }
+
+        html[data-theme="light"] .album-cover {
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        html[data-theme="light"] .album-info h3 {
+            color: var(--text);
+        }
+
+        html[data-theme="light"] .album-info p {
+            color: var(--text-light);
+        }
+
+        html[data-theme="light"] .modal {
+            background: rgba(255, 255, 255, 0.95);
+        }
+
+        html[data-theme="light"] .modal-content {
+            background: #ffffff;
+            border: 1px solid var(--border);
+        }
+
+        html[data-theme="light"] .modal h2 {
+            color: var(--text);
+        }
+
+        html[data-theme="light"] .modal label {
+            color: var(--text);
+        }
+
+        html[data-theme="light"] .modal input,
+        html[data-theme="light"] .modal textarea {
+            background: #f9fafb;
+            border: 1px solid var(--border);
+            color: var(--text);
+        }
+
+        html[data-theme="light"] .modal input:focus,
+        html[data-theme="light"] .modal textarea:focus {
+            border-color: var(--highlight);
+            background: #ffffff;
+        }
+
+        html[data-theme="light"] .submit-btn {
+            background: var(--highlight);
+            color: #ffffff;
+        }
+
+        html[data-theme="light"] .submit-btn:hover {
+            background: #ffffff;
+            color: var(--highlight);
+            border-color: var(--highlight);
+        }
+
+        html[data-theme="light"] .cancel-btn {
+            background: #f3f4f6;
+            color: var(--text);
+            border: 1px solid var(--border);
+        }
+
+        html[data-theme="light"] .cancel-btn:hover {
+            background: #e5e7eb;
+        }
+
+        html[data-theme="light"] .floating-add-btn {
+            background: var(--highlight);
+            color: #ffffff;
+            box-shadow: 0 4px 12px rgba(5, 150, 105, 0.3);
+        }
+
+        html[data-theme="light"] .floating-add-btn:hover {
+            background: #ffffff;
+            color: var(--highlight);
+            border-color: var(--highlight);
+        }
+
+        /* Keep green titles visible in light mode */
+        html[data-theme="light"] .logo {
+            background: linear-gradient(135deg, #059669, #10b981) !important;
+            -webkit-background-clip: text !important;
+            -webkit-text-fill-color: transparent !important;
+            background-clip: text !important;
+        }
+
+        html[data-theme="light"] .hero-title {
+            background: linear-gradient(135deg, #059669, #10b981) !important;
+            -webkit-background-clip: text !important;
+            -webkit-text-fill-color: transparent !important;
+            background-clip: text !important;
+        }
+
+        /* Clover Cursor */
+        .globe-cursor {
+            position: fixed;
+            width: 32px;
+            height: 32px;
+            pointer-events: none;
+            z-index: 9999;
+            transition: transform 0.1s ease;
+            transform: translate(-50%, -50%);
+        }
+
+        .globe-cursor:hover {
+            transform: translate(-50%, -50%) scale(1.2);
+        }
+
+        /* Hide cursor on mobile */
+        @media (max-width: 768px) {
+            .globe-cursor { display: none; }
+        }
+
+        /* Responsive styles for light mode */
+        @media (max-width: 768px) {
+            html[data-theme="light"] .music-grid {
+                grid-template-columns: 1fr;
+                gap: 32px;
+            }
+        }
+    </style>
+    <script>
+    // Animate album cards on scroll
+    document.addEventListener('DOMContentLoaded', function() {
+        function inViewport(el) {
+            const rect = el.getBoundingClientRect();
+            return (
+                rect.top < window.innerHeight - 60 && rect.bottom > 0
+            );
+        }
+        function animateAlbums() {
+            document.querySelectorAll('.album-item').forEach(function(item) {
+                if (inViewport(item)) {
+                    item.classList.add('visible');
+                }
+            });
+        }
+        animateAlbums();
+        window.addEventListener('scroll', animateAlbums);
+    });
+    </script>
+</head>
+<body>
+    <button id="mode-toggle" aria-label="Toggle light/dark mode">🌙</button>
+    <div class="container">
+        <div class="header">
+            <div class="logo"><a href="/" style="text-decoration: none; color: inherit;">4-H NATIONAL<br>GIS TEAM</a></div>
+      
+        </div>
+        <div class="hero-title">NATIONAL 4-H GIS TEAM PICTURES</div>
+        <div class="hero-description">
+            A gallery showcasing the National 4-H GIS Team and our collaborative projects
+        </div>
+        <div class="music-grid">
+            {% if gallery_items %}
+                {% for item in gallery_items %}
+                <div class="album-item" data-item-id="{{ item.id }}">
+                    <div class="album-cover">
+                        <img src="{{ item.image_url }}" alt="{{ item.title }}" />
+                        {% if current_user.is_authenticated and current_user.email.endswith('@national4hgeospatialteam.us') %}
+                        <div class="image-actions">
+                            <button class="delete-btn" onclick="deleteImage('{{ item.id }}')">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </div>
+                        {% endif %}
+                    </div>
+                    <div class="album-info">
+                        <h3>{{ item.title }}</h3>
+                        <p>{{ item.description }}</p>
+                    </div>
+                </div>
+                {% endfor %}
+            {% endif %}
+        </div>
+        
+        <!-- Floating Add Button -->
+        {% if current_user.is_authenticated and current_user.email.endswith('@national4hgeospatialteam.us') %}
+        <button id="add-image-btn" class="floating-add-btn" onclick="openAddImageModal()">
+            <i class="fas fa-plus"></i>
+        </button>
+        {% endif %}
+        </div>
+    </div>
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Hide default cursor
+        document.body.style.cursor = 'none';
+        // Add clover cursor element
+        const clover = document.createElement('img');
+        clover.src = 'static/images/Clover.png';
+        clover.className = 'globe-cursor';
+        document.body.appendChild(clover);
+        // Move clover with mouse
+        document.addEventListener('mousemove', function(e) {
+            clover.style.left = e.clientX + 'px';
+            clover.style.top = e.clientY + 'px';
+        });
+
+        function setMode(mode) {
+            if (mode === 'light') {
+                document.documentElement.setAttribute('data-theme', 'light');
+                localStorage.setItem('theme', 'light');
+                document.getElementById('mode-toggle').textContent = '☀️';
+            } else {
+                document.documentElement.removeAttribute('data-theme');
+                localStorage.setItem('theme', 'dark');
+                document.getElementById('mode-toggle').textContent = '🌙';
+            }
+        }
+        var modeToggle = document.getElementById('mode-toggle');
+        modeToggle.addEventListener('click', function() {
+            const currentTheme = document.documentElement.getAttribute('data-theme');
+            setMode(currentTheme === 'light' ? 'dark' : 'light');
+        });
+        setMode(localStorage.getItem('theme') === 'light' ? 'light' : 'dark');
+    });
+    </script>
+    <style>
+    #mode-toggle {
+        position: fixed;
+        top: 24px;
+        right: 32px;
+        z-index: 2000;
+        background: rgba(255,255,255,0.8);
+        border: none;
+        border-radius: 50%;
+        width: 44px;
+        height: 44px;
+        font-size: 1.5rem;
+        cursor: pointer;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        transition: background 0.2s;
+        pointer-events: auto;
+    }
+    #mode-toggle:hover {
+        background: #eaeaea;
+    }
+    body.light-mode {
+        background: #fff !important;
+        color: #111 !important;
+    }
+    body.light-mode .section-title,
+    body.light-mode .music-title,
+    body.light-mode .music-description,
+    body.light-mode .next-up-label,
+    body.light-mode .music-btn,
+    body.light-mode .next-up-btn,
+    body.light-mode .nav-link {
+        color: #111 !important;
+    }
+    body.light-mode .music-btn:hover,
+    body.light-mode .next-up-btn:hover {
+        color: #fff;
+        -webkit-text-stroke: 2px #177a3b;
+        text-stroke: 2px #177a3b;
+    }
+    body.light-mode .nav-link:hover {
+        color: #177a3b;
+    }
+    body.dark-mode {
+        background: #000 !important;
+        color: #fff !important;
+    }
+    </style>
+    
+    <!-- Add Image Modal -->
+    <div id="addImageModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Add New Image</h2>
+                <span class="close" onclick="closeAddImageModal()">&times;</span>
+            </div>
+            <div class="modal-body">
+                <form id="addImageForm" enctype="multipart/form-data">
+                    <div class="form-group">
+                        <label for="title">Image Title</label>
+                        <input type="text" id="title" name="title" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="description">Description</label>
+                        <textarea id="description" name="description" required></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="image_file">Upload Image</label>
+                        <input type="file" id="image_file" name="image_file" accept="image/*" required>
+                    </div>
+                    <button type="submit" class="submit-btn">Add to Gallery</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    
+
+    
+    <!-- Delete Confirmation Modal -->
+    <div id="deleteConfirmModal" class="modal">
+        <div class="modal-content delete-modal">
+            <div class="modal-header delete-header">
+                <div class="warning-icon">⚠️</div>
+                <h2>Confirm Deletion</h2>
+                <span class="close" onclick="closeDeleteConfirmModal()">&times;</span>
+            </div>
+            <div class="modal-body">
+                <div class="warning-content">
+                    <h3>Are you sure you want to delete this image?</h3>
+                    <p>This action cannot be undone and the image will be permanently removed from the gallery.</p>
+                </div>
+            </div>
+            <div class="modal-actions">
+                <button onclick="closeDeleteConfirmModal()" class="cancel-btn">
+                    Cancel
+                </button>
+                <button id="confirmDeleteBtn" class="delete-btn">
+                    Delete Image
+                </button>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+    // Modal functions
+    function openAddImageModal() {
+        document.getElementById('addImageModal').style.display = 'block';
+    }
+    
+    function closeAddImageModal() {
+        document.getElementById('addImageModal').style.display = 'none';
+        document.getElementById('addImageForm').reset();
+    }
+    
+    // Close modal when clicking outside
+    window.onclick = function(event) {
+        const modal = document.getElementById('addImageModal');
+        if (event.target == modal) {
+            closeAddImageModal();
+        }
+    }
+    
+    // Handle form submission
+    document.getElementById('addImageForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        const formData = new FormData(this);
+        
+        fetch('/add-gallery-item', {
+            method: 'POST',
+            body: formData
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                closeAddImageModal();
+                // Reload the page to show the new image
+                window.location.reload();
+            } else {
+                alert('Error: ' + data.message);
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('An error occurred while uploading the image.');
+        });
+    });
+    
+
+    
+    // Delete image function
+    function deleteImage(itemId) {
+        // Store the item ID for the confirmation
+        window.itemToDelete = itemId;
+        
+        // Show the custom confirmation modal
+        document.getElementById('deleteConfirmModal').style.display = 'block';
+    }
+    
+    // Close delete confirmation modal
+    function closeDeleteConfirmModal() {
+        document.getElementById('deleteConfirmModal').style.display = 'none';
+        window.itemToDelete = null;
+    }
+    
+    // Handle delete confirmation
+    document.getElementById('confirmDeleteBtn').addEventListener('click', function() {
+        const itemId = window.itemToDelete;
+        if (!itemId) return;
+        
+        console.log('Attempting to delete item:', itemId);
+        
+        fetch(`/delete-gallery-item/${itemId}`, {
+            method: 'POST'
+        })
+        .then(response => {
+            console.log('Delete response status:', response.status);
+            return response.json();
+        })
+        .then(data => {
+            console.log('Delete response data:', data);
+            if (data.success) {
+                closeDeleteConfirmModal();
+                alert('Image deleted successfully!');
+                // Reload the page to ensure the database changes are reflected
+                window.location.reload();
+            } else {
+                alert('Error: ' + data.message);
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('An error occurred while deleting the image.');
+        });
+    });
+    
+    // Close modals when clicking outside
+    window.onclick = function(event) {
+        const addModal = document.getElementById('addImageModal');
+        const deleteModal = document.getElementById('deleteConfirmModal');
+        if (event.target == addModal) {
+            closeAddImageModal();
+        }
+        if (event.target == deleteModal) {
+            closeDeleteConfirmModal();
+        }
+    }
+    </script>
+</body>
+</html> 

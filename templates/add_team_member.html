@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Team Member - National 4-H GIS Team</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap');
+        
+        :root {
+            --bg: #0a0a0a;
+            --bg-secondary: #111111;
+            --text: #ffffff;
+            --text-light: #ffffff;
+            --text-muted: #737373;
+            --border: #1f1f1f;
+            --border-light: #2a2a2a;
+            --highlight: #177a3b;
+            --highlight-light: #3fc16c;
+            --highlight-glow: rgba(23,122,59,0.2);
+            --card-bg: rgba(17, 17, 17, 0.8);
+            --transition: 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+            --transition-fast: 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            --section-spacing: 160px;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background: #000;
+            color: var(--text);
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            min-height: 100vh;
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                linear-gradient(to bottom, rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.95));
+            pointer-events: none;
+            z-index: -2;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 120px 40px 100px 40px;
+            position: relative;
+        }
+
+        .header {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            margin-bottom: var(--section-spacing);
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 0.8s 0.2s forwards;
+        }
+
+        .logo {
+            font-size: 2.5rem;
+            font-weight: 900;
+            letter-spacing: -0.05em;
+            line-height: 0.9;
+            background: linear-gradient(135deg, var(--highlight), var(--highlight-light));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            transition: transform var(--transition);
+            position: relative;
+        }
+
+        .logo:hover {
+            transform: scale(1.05);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 20px;
+        }
+
+        .nav-link {
+            color: var(--text-light);
+            text-decoration: none;
+            font-size: 1rem;
+            font-weight: 600;
+            transition: all var(--transition);
+            padding: 12px 24px;
+            border-radius: 50px;
+            backdrop-filter: blur(10px);
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .nav-link:hover {
+            background: var(--highlight);
+            color: var(--text);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px var(--highlight-glow);
+        }
+
+        .form-container {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 3rem;
+            margin-bottom: var(--section-spacing);
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 0.8s 0.4s forwards;
+        }
+
+        .form-title {
+            font-size: clamp(2.5rem, 6vw, 4rem);
+            font-weight: 900;
+            color: var(--text);
+            margin-bottom: 2rem;
+            letter-spacing: -0.05em;
+            line-height: 0.95;
+        }
+
+        .form-group {
+            margin-bottom: 2rem;
+        }
+
+        .form-label {
+            display: block;
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--text-light);
+            margin-bottom: 0.5rem;
+        }
+
+        .form-input, .form-textarea, .form-select {
+            width: 100%;
+            padding: 1rem;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            color: var(--text);
+            font-size: 1rem;
+            font-family: inherit;
+            transition: var(--transition-fast);
+        }
+
+        .form-input:focus, .form-textarea:focus, .form-select:focus {
+            outline: none;
+            border-color: var(--highlight);
+            box-shadow: 0 0 0 3px var(--highlight-glow);
+        }
+
+        .form-textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+
+        .form-actions {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 1rem 2rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-size: 1rem;
+            font-weight: 600;
+            transition: var(--transition-fast);
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn-primary {
+            background: var(--highlight);
+            color: var(--text);
+        }
+
+        .btn-primary:hover {
+            background: var(--highlight-light);
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            background: var(--bg-secondary);
+            color: var(--text-light);
+            border: 1px solid var(--border);
+        }
+
+        .btn-secondary:hover {
+            background: var(--border);
+            transform: translateY(-2px);
+        }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 100px 20px 80px 20px;
+            }
+
+            .form-container {
+                padding: 2rem;
+            }
+
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+
+            .form-actions {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <a href="/" class="logo">4-H NATIONAL<br>GIS TEAM</a>
+            <div class="nav-links">
+                <a href="/team" class="nav-link"><i class="fas fa-arrow-left"></i> Back to Team</a>
+                <a href="/" class="nav-link"><i class="fas fa-home"></i> Home</a>
+            </div>
+        </div>
+        
+        <div class="form-container">
+            <h1 class="form-title">Add Team Member</h1>
+            
+            <form method="POST">
+                <div class="form-group">
+                    <label for="name" class="form-label">Name *</label>
+                    <input type="text" id="name" name="name" class="form-input" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="title" class="form-label">Title/Position *</label>
+                    <input type="text" id="title" name="title" class="form-input" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="description" class="form-label">Description *</label>
+                    <textarea id="description" name="description" class="form-textarea" required></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="linkedin_url" class="form-label">LinkedIn URL</label>
+                    <input type="url" id="linkedin_url" name="linkedin_url" class="form-input" placeholder="https://linkedin.com/in/username">
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="member_type" class="form-label">Member Type *</label>
+                        <select id="member_type" name="member_type" class="form-select" required>
+                            <option value="board">Board of Directors</option>
+                            <option value="alumni">Alumni</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group" id="year-group" style="display: none;">
+                        <label for="year" class="form-label">Year/Role (for Alumni)</label>
+                        <input type="text" id="year" name="year" class="form-input" placeholder="e.g., Field Mapping Lead, 2009">
+                    </div>
+                </div>
+
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-plus"></i> Add Team Member
+                    </button>
+                    <a href="/team" class="btn btn-secondary">
+                        <i class="fas fa-times"></i> Cancel
+                    </a>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // Show/hide year field based on member type
+        document.getElementById('member_type').addEventListener('change', function() {
+            const yearGroup = document.getElementById('year-group');
+            if (this.value === 'alumni') {
+                yearGroup.style.display = 'block';
+            } else {
+                yearGroup.style.display = 'none';
+            }
+        });
+
+        // Form submission handling
+        document.querySelector('form').addEventListener('submit', function(e) {
+            const submitBtn = this.querySelector('button[type="submit"]');
+            const originalText = submitBtn.innerHTML;
+            
+            // Show loading state
+            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Adding...';
+            submitBtn.disabled = true;
+            
+            // Form will submit normally, backend will redirect
+        });
+    </script>
+</body>
+</html> 
